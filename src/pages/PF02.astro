@@ -4,32 +4,11 @@ import Project from "../components/Project.astro";
 import Sidebar from "../components/Sidebar.astro";
 const projects = [
   {
-    title: "NetCare",
+    title: "Aún nada",
     desc: [
-      "Built an infrastructure for a telemedicine startup focusing on remote patient monitoring",
-      "Created Azure environment from scratch using Terraform as a IaC tool",
-      "Developed a comprehensive CI/CD pipeline for mobile app deployment",
+      "Esperando"
     ],
-    tech: ["Terraform", "Azure", "Docker", "Nginx", "GitLab CI/CD"]
-  },
-  {
-    title: "DataMesh",
-    desc: [
-      "Built an infrastructure for a data analytics platform",
-      "Configured VMs and deployed a multi-node Kubernetes cluster on AWS",
-      "Designed to handle a high volume of ~5 million data points per day",
-      "Integrated Grafana and Prometheus for monitoring",
-    ],
-    tech: ["Docker", "Kubernetes", "AWS", "Node.js", "RabbitMQ"]
-  },
-  {
-    title: "CloudEase",
-    desc: [
-      "Migrated a cloud-based CRM system from one provider to another",
-      "Built the new GCP infrastructure using Terraform as a IaC tool",
-      "Deployed logging and monitoring tools in GKE cluster",
-    ],
-    tech: ["GCP", "Terraform", "Kubernetes", "GitLab"]
+    tech: ["nada aún"]
   }
 ];
 ---
@@ -50,7 +29,7 @@ const projects = [
             >
           </div>
           <div class="content-container">
-            <h1>DevOps</h1>
+            <h1>PF02</h1>
             <section class="items-container">
                 <div class="resouce-items">
                     {projects.map(project => (
