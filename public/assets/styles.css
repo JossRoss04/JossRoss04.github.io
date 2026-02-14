@@ -128,6 +128,21 @@ ul {
   padding-left: 40px;
 }
 
+.btn-descarga {
+  display: inline-block;
+  padding: 12px 20px;
+  background-color: #00000033;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.btn-descarga:hover {
+  background-color: #00000055;
+  transform: scale(1.05);
+}
+
 .oracion{
   margin-top: 0;
   margin-bottom: 10px;
@@ -141,7 +156,7 @@ ul {
   bottom: 0;
   width: 100%;
   opacity: 1;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #00000033;
   color: white;
   text-align: center;
   padding: 10px 0;
