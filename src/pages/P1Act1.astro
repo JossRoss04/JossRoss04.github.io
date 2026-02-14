@@ -1,0 +1,277 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Actividad 1 - Parcial 1 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="PF01" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">Actividad 1: ANÁLISIS GRUPAL: DE UN CIBERATAQUE REAL Y SU IMPACTO EMPRESARIAL </h1>
+
+            <h3>NotPetya–Maersk (2017)</h3>
+
+            <div class="content-container">
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Introducción Contextual</h4>
+                  <div>
+                    <p>En el contexto de la digitalización global, una de las principales amenazas a las que se enfrentan las empresas y los gobiernos son los ciberataques<br>
+                    Uno de los casos que evidenció de forma contundente el peligro de los ciberataques a gran escala fue el ocurrido en Ucrania en junio de 2017, conocido como el ataque NotPetya
+                    El presente reporte analiza el ciberataque NotPetya y su impacto en Maersk desde una perspectiva técnica, económica y estratégica
+                    </p>
+                  </div>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Cronología</h4>
+                  <table class="cronologia">
+                    <thead>
+                      <tr>
+                      <th>Fecha</th>
+                      <th>Evento</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Antes del 27 de junio</td>
+                        <td>El código malicioso fue insertado dentro de una actualización legítima y distribuido automáticamente</td>
+                      </tr>
+                      <tr>
+                        <td>Mañana del 27 de junio</td>
+                        <td>Miles de empresas en Ucrania instalaron la actualización comprometida de M.E.Doc de forma normal. Al ejecutarse, el malware NotPetya se activó y comenzó a sobrescribir el Master Boot Record (MBR) y a destruir archivos críticos del sistema, dejando los equipos completamente inoperables.</td>
+                      </tr>
+                      <tr>
+                        <td>27 de Junio, dentro de Maersk</td>
+                        <td>Los sistemas de tecnologías de la información de Maersk comenzaron a fallar de manera simultánea. El personal de TI tardó aproximadamente dos horas en desconectar la red global para frenar la propagación.</td>
+                      </tr>
+                      <tr>
+                        <td>28 y 29 de junio</td>
+                        <td>Maersk emitió un comunicado oficial confirmando el ataque. Se lograron restaurar parcialmente algunos sistemas, permitiendo aceptar reservas existentes de clientes.</td>
+                      </tr>
+                      <tr>
+                        <td>03 al 09 de julio</td>
+                        <td>Las operaciones de Maersk Line, Damco y APM Terminals comenzaron a normalizarse progresivamente conforme se reconstruían los sistemas afectados.</td>
+                      </tr>
+                      <tr>
+                        <td>Investigaciones posteriores</td>
+                        <td>Se confirmó que NotPetya no era un ransomware funcional, sino un malware destructivo diseñado para inutilizar sistemas de forma irreversible, sin posibilidad real de recuperación mediante pago de rescate.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Vulnerabilidades y Condiciones</h4>
+                  <table class="cronologia">
+                    <thead>
+                      <tr>
+                        <th>Vulnerabilidad/Condición</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Software de terceros comprometido
+                          <ul>
+                            <li>El ataque no fue por phishing convencional ni por un fichero malicioso descargado por error, los atacantes infiltraron el proceso de actualización de M.E.doc, insertando NotPetya dentro de un software que millones de sistemas confiaban</li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Errores y negligencias de M.E.doc
+                          <ul>
+                            <li>
+                              La empresa M.E.doc había sido advertida por firmas de ciberseguridad sobre vulnerabilidades en sus infraestructuras, pero aparentemente no tomó medidas suficientes para reforzarlas.</li>
+                              <li>El servidor de actualizaciones fue comprometido sin mecanismos adecuados de verificación criptográfica de integridad</li>
+                            </ul>
+                          </td>
+                      <tr>
+                        <td>
+                          Fallas técnicas y de gestión
+                          <ul>
+                            <li>
+                              Sistemas sin parches a vulnerabilidades explotables (Eternalblue).
+                            </li>
+                            <li>
+                              Redes corporativas sin segmentación efectiva.
+                            </li>
+                            <li>
+                              Gestión de credenciales y privilegios insuficiente.
+                            </li>
+                            <li>
+                              Backups no aislados ni actualizados de forma segura.
+                            </li>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+
+              <div class="titulo-separador"></div>
+              
+              <div class="content-container">
+                <h4>Descripciones técnicas</h4>
+                  <table class="cronologia">
+                    <thead>
+                      <tr>
+                        <th>Elemento</th>
+                        <th>Descripcion</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Tipo de ataque</td>
+                        <td>Wiper disfrazado de ransomware. Aunque se presentaba como ransomware (NotPetya), su diseño impedía la recuperación de la información, por lo que su objetivo real fue sabotaje y destrucción de sistemas, no extorsión.</td>
+                      </tr>
+                      <tr>
+                        <td>Actor o grupo atacante</td>
+                        <td>Atribuido por EE. UU., Reino Unido y otros países a actores estatales rusos (GRU / APT relacionado con Sandworm). No fue un grupo criminal tradicional.</td>
+                      </tr>
+                      <tr>
+                        <td>Vector de entrada</td>
+                        <td>Actualización maliciosa del software contable ucraniano MeDoc (ataque a la cadena de suministro). Maersk tenía una oficina en Ucrania que utilizaba MeDoc, lo que permitió el acceso inicial.</td>
+                      </tr>
+                      <tr>
+                        <td>Vulnerabilidad explotada</td>
+                        <td>Compromiso previo de los servidores de actualización de MeDoc.
+                        Uso de EternalBlue y EternalRomance para propagación lateral.</td>
+                      </tr>
+                      <tr>
+                        <td>Etapas del ataque (MITRE ATT&CK)</td>
+                        <td>
+                          <ul>
+                            <li>Acceso inicial (Initial Access)</li>
+                            <li>Ejecución (Execution)</li>
+                            <li>Persistencia (Persistence)</li>
+                            <li>Escalada de privilegios (Privilege Escalation)</li>
+                            <li>Movimiento lateral (Lateral Movement)</li>
+                            <li>Impacto (Impact)</li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Sistemas o servicios comprometidos</td>
+                        <td>
+                          <ul>
+                            <li>Servidores corporativos centrales</li>
+                            <li>Sistemas ERP (SAP)</li>
+                            <li>Sistemas de correo electrónico</li>
+                            <li>Sistemas de reservas y logística</li>
+                            <li>Estaciones de trabajo del personal</li>
+                            <li>Infraestructura de TI en puertos y terminales</li>
+                            <li>Servicios internos de autenticación y directorio activo</li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Duración del incidente</td>
+                        <td>10 a 14 días</td>
+                      </tr>
+                      <tr>
+                        <td>Mecanismos de detección y respuesta</td>
+                        <td>
+                          <ul>
+                            <li>Detección inicial por fallos masivos simultáneos.</li>
+                            <li>Aislamiento físico de redes.</li>
+                            <li>Sistemas de correo electrónico</li>
+                            <li>Apagado de sistemas globales.</li>
+                            <li>Recuperación desde backups offline</li>
+                            <li>Respuesta interna y apoyo de expertos externos en ciberseguridad.</li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Evaluación de impacto</h4>
+                  <table class="cronologia">
+                    <thead>
+                      <tr>
+                        <th>Principio</th>
+                        <th>Descripción del impacto</th>
+                        <th>Evidencia del caso</th>
+                      </tr>                     
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Confidencialidad</td>
+                        <td>Aunque NotPetya no estaba diseñado para exfiltrar información, el control administrativo total de la red implicó un alto riesgo de exposición de datos sensibles.</td>
+                        <td>
+                          Acceso completo a sistemas internos, Active Directory y servidores corporativos.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Integridad</td>
+                        <td>La integridad de los sistemas fue severamente comprometida; archivos, configuraciones y estructuras críticas fueron destruidas de manera irreversible.</td>
+                        <td>Sobrescritura del MBR, corrupción de sistemas SAP y pérdida total de sistemas operativos.</td>
+                      </tr>
+                      <tr>
+                        <td>Disponibilidad</td>
+                        <td>La disponibilidad fue el principio más afectado; las operaciones globales de la empresa quedaron paralizadas durante varios días.</td>
+                        <td>Interrupción de puertos, reservas, logística y comunicaciones internas a nivel mundial.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Costo Total</h4>
+                  <p>El modelo económico propuesto por Adrian Mizzi resulta especialmente útil para analizar el impacto del ciberataque NotPetya en Maersk desde la perspectiva de un Sistema de Gestión de la Seguridad de la Información (SGSI). </br></p>
+                  <p>En el caso de Maersk, los costos de construcción y protección de la seguridad (segmentación de red, auditoría de proveedores y backups aislados) fueron significativamente menores en comparación con los costos de ruptura, pérdida de ingresos y reconstrucción de la infraestructura tecnológica, los cuales superaron los 300 millones de dólares </br></p>
+                  <p>El modelo de Mizzi complementa los marcos del SGSI como ISO/IEC 27001, al aportar una visión económica que justifica la necesidad de invertir de manera proporcional al impacto potencial de las amenazas.
+                  </p>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Conclusiones</h4>
+                  <p>Como vemos, un ataque puede ocurrir hasta en un ambiente considerado seguro, pero vemos que ni una empresa de gran nombre se salva, pues se cometió uno de los errores mas graves, ser ingenuo ante la seguridad.</p>
+                  <p>Pues todo entro a través de un software que se creía seguro. Por eso mismo, siempre es bueno primero checar las actualizaciones que llegan en un entorno seguro y aislado para prevenir estas catastrofes.</p>
+              </div>
+              
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

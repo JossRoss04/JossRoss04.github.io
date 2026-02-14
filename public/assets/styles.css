@@ -131,6 +131,49 @@ ul {
   text-align: center;
   padding: 10px 0;
 }
+.cronologia {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+.cronologia th,
+.cronologia td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: center;
+  color: #d4d4d4;
+}
+
+.cronologia th {
+  background-color: #171717;
+  color: #d4d4d4;
+}
+.cronologia tr:nth-child(odd) {
+  background-color: #202020;
+}
+.cronologia tr:nth-child(even) {
+  background-color: #2A2A2A;
+}
+
+.cronologia tr:hover {
+  background-color: #3E3E3E;
+  transition: 0.2s ease;
+}
+
+.cronologia td p {
+  color: #ddd;
+}
+
+.titulo-separador {
+  width: 80px;
+  height: 4px;
+  background-color: #e8e8ee;
+  margin: 15px auto 30px auto;
+  border-radius: 10px;
+}
 
 @media screen and (max-width: 767px) {
   .w-nav-brand {
@@ -273,16 +316,35 @@ h4 {
   color: #fff;
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 18px;
+  font-size: 28px;
   font-weight: 400;
   line-height: 24px;
 }
+
+h5 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 32px;
+    color: #fff;
+  }
+
+h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 28px;
+    color: #fff;
+  }
 
 p {
   color: #a8a8a8;
   margin-bottom: 10px;
   font-size: 16px;
   line-height: 26px;
+  text-indent: 40px;
 }
 
 .content {
@@ -561,6 +623,7 @@ p {
   grid-column-gap: 32px;
   grid-row-gap: 32px;
   flex-direction: column;
+  align-items: center;
   display: flex;
 }
 
@@ -629,6 +692,18 @@ p {
     font-size: 32px;
     font-weight: 300;
     line-height: 48px;
+  }
+
+  h5 {
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 32px;
+  }
+
+  h6 {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 28px;
   }
 
   .sidebar {

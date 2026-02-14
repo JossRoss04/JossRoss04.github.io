@@ -1,0 +1,89 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Actividad 1: ANÁLISIS GRUPAL: DE UN CIBERATAQUE REAL Y SU IMPACTO EMPRESARIAL",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    link: "/P1Act1"
+  },
+  {
+    title: "Actividad 2: ",
+    desc: [
+      "Desconocido"
+    ],
+    link: "/P1Act2"
+  },
+  {
+    title: "Actividad 3: ",
+    desc: [
+      "Desconocido"
+    ],
+    link: "/P1Act3"
+  },
+    {
+    title: "Actividad 4: ",
+    desc: [
+      "Desconocido"
+    ],
+    link: "/P1Act4"
+  },
+    {
+    title: "Actividad 5: ",
+    desc: [
+      "Desconocido"
+    ],
+    link: "/P1Act5"
+  },
+    {
+    title: "Actividad 6: ",
+    desc: [
+      "Desconocido"
+    ],
+    link: "/P1Act6"
+  },
+];
+---
+
+<!DOCTYPE html>
+<html>
+  <Header title="Actividades - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="Parciales" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1>Actividades</h1>
+            <section class="items-container">
+                <div class="resouce-items">
+                    {projects.map(project => (
+                      <Project 
+                        title={project.title} 
+                        desc={project.desc}
+                        link={project.link}
+                      />
+                    ))}
+                  </div>
+            </section>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

@@ -1,26 +1,40 @@
 ---
 import Header from "../components/Header.astro";
-import Project from "../components/Project.astro";
+import Project from "../components/Parcial1Actividades.astro";
 import Sidebar from "../components/Sidebar.astro";
 const projects = [
   {
-    title: "Aún nada",
+    title: "Parcial 1",
     desc: [
-      "Esperando"
+      "Actividades introductorias a la seguridad informática"
     ],
-    tech: ["nada aún"]
-  }
+    tech: ["Entrar a Parcial 1 "]
+  },
+  {
+    title: "Parcial 2",
+    desc: [
+      "Desconocido"
+    ],
+    tech: ["Entrar a Parcial 2 "]
+  },
+  {
+    title: "Parcial 3",
+    desc: [
+      "Desconocido"
+    ],
+    tech: ["Entrar a Parcial 3"]
+  },
 ];
 ---
 
 <!DOCTYPE html>
 <html
 >
-  <Header title="PF01 - 181760" />
+  <Header title="Actividades - 181760" />
 
   <body>
     <div class="content">
-        <Sidebar selectedItem="PF01" />
+        <Sidebar selectedItem="Actividades" />
       <nav class="main">
         <div class="container">
           <div class="back-nav-container">
@@ -30,7 +44,7 @@ const projects = [
             >
           </div>
           <div class="content-container">
-            <h1>PF01</h1>
+            <h1>Lista de Actividades</h1>
             <section class="items-container">
                 <div class="resouce-items">
                     {projects.map(project => (

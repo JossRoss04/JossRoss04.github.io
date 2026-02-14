@@ -1,0 +1,338 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Actividad 2 - Parcial 1 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="PF01" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">Actividad 2: ANÁLISIS DE SERVICIOS DE SEGURIDAD </h1>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Introducción</h4>
+                  <p>En este trabajo, se estará revisando distintos escenarios de ataques relacionadas con la ciberseguridad, con el fin de utilizar los marcos X.800 y el RFC 4949 para analizar correctamente las áreas comprometidas, tipos de amenazas y mecanismos sugeridos. Esta actividad ayudará para que el alumno pueda adentrarse ante este importante conocimiento de la seguridad cibernética.</p>
+            </div>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Glosario</h4>
+                <h5>Marco X.800</h5>
+                  <p>Conocido realmente como ITU-T X.800: “Security Architecture for Open Systems Interconnection (OSI) for CCITT Applications es una “RECOMENDACIÓN” que proporciona un panorama muy claro para entender, planificar e identificar la seguridad en las redes y sistemas interconectados.</p>
+                <h5>RFC 4949</h5>
+                  <p>Es un glosario oficial de los términos utilizados en la seguridad cibernéti ca.</p>
+            </div>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Escenarios</h4>
+                <h5>Escenario 1</h5>
+                  <p>En múltiples incidentes atribuidos al grupo LockBit, organizaciones públicas y privadas han sufrido el cifrado masivo de servidores tras un acceso inicial no autorizado. Antes de ejecutar el ransomware, los atacantes exfiltraron información sensible y posteriormente amenazaron con su publicación, evidenciando un compromiso simultáneo de la confidencialidad, la integridad y la disponibilidad. Desde el enfoque del RFC 4949, el incidente se clasifica como un multi-stage attack con data breach y availability attack, donde la indisponibilidad del sistema es solo una fase final del daño. La ausencia de respaldos inmutables y de detección temprana permitió que el impacto fuera total.</p>
+                  <table class="cronologia">
+                    <thead>
+                      <th>Elemento</th>
+                      <th>Respuesta</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Servicios X.800 comprometidos</td>
+                        <td>Control de acceso, Confidencialidad de datos, disponibilidad</td>
+                      </tr>
+                      <tr>
+                        <td>Definición(es) aplicable(s) RFC 4949.</td>
+                        <td>
+                          <p>access control center (Es en donde se controlan los accesos a permisos, credenciales, privilegios de un sistema)</p>
+                          <p>data confidentiality (Informacion que no esta para el publico ni siquiera para un sector de los internos, solo se accede y se publica con acceso autorizado.)</p>
+                          <p>Data breach (fuga de información sensible)</p>
+                        </td>                      
+                      </tr>
+                      <tr>
+                        <td>Tipo de amenaza.</td>
+                        <td>Extorsion</td>
+                      </tr>
+                      <tr>
+                        <td>Vector de ataque.</td>
+                        <td>Credenciales de acceso no autorizadas</td>
+                      </tr>
+                      <tr>
+                        <td>Impacto técnico / operativo.</td>
+                        <td>Exposición de datos sensibles</td>
+                      </tr>
+                      <tr>
+                        <td>Medida de control recomendada.</td>
+                        <td>Control de acceso y cifrado de información</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                
+                <h5>Escenario 2</h5>
+                  <p>En diversos casos documentados, bases de datos completas quedaron accesibles públicamente debido a errores de configuración en servicios de almacenamiento en la nube. No existió una explotación técnica sofisticada, sino una falla en el control de acceso, lo que derivó directamente en la pérdida de confidencialidad de los datos. El RFC 4949 describe este tipo de incidentes como misconfiguration y exposure, subrayando que la amenaza no siempre implica malware o intrusión activa. El impacto suele ser legal y reputacional, aun cuando no se pueda demostrar acceso malicioso.</p>
+                  <table class="cronologia">
+                    <thead>
+                      <th>Elemento</th>
+                      <th>Respuesta</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Servicios X.800 comprometidos</td>
+                        <td>Control de acceso, confidenciabilidad de datos</td>
+                      </tr>
+                      <tr>
+                        <td>Definición(es) aplicable(s) RFC 4949.</td>
+                        <td>
+                          <p>Exposure (Cuando datos son lanzados al público sin una autorización previa)</p>
+                          <p>misconfiguration (Errores en la instalación correcta de sistemas de redes).</p>
+                        </td>                      
+                      </tr>
+                      <tr>
+                        <td>Tipo de amenaza.</td>
+                        <td>Exposición de datos</td>
+                      </tr>
+                      <tr>
+                        <td>Vector de ataque.</td>
+                        <td>Mala configuración del sistema y de permisos</td>
+                      </tr>
+                      <tr>
+                        <td>Impacto técnico / operativo.</td>
+                        <td>Reputación</td>
+                      </tr>
+                      <tr>
+                        <td>Medida de control recomendada.</td>
+                        <td>Mejorar el control de accesos</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                <h5>Escenario 3</h5>
+                  <p>Un proveedor legítimo de software fue comprometido y distribuyó una actualización que incluía código malicioso, afectando a cientos de organizaciones que confiaban en él. Este escenario refleja una violación grave de la integridad de los sistemas y, en muchos casos, de la confidencialidad, al permitir accesos no autorizados posteriores. El RFC 4949 lo identifica como supply chain attack, destacando el abuso de relaciones de confianza. El daño es particularmente crítico porque rompe el supuesto de legitimidad del software firmado.</p>
+                  <table class="cronologia">
+                    <thead>
+                      <th>Elemento</th>
+                      <th>Respuesta</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Servicios X.800 comprometidos</td>
+                        <td>Autenticación, integridad y confidencialidad de datos</td>
+                      </tr>
+                      <tr>
+                        <td>Definición(es) aplicable(s) RFC 4949.</td>
+                        <td>
+                          <p>Trust chain (camino certificado y ancla de confianza)</p>
+                        </td>                      
+                      </tr>
+                      <tr>
+                        <td>Tipo de amenaza.</td>
+                        <td>Integridad de los sistemas de los clientes</td>
+                      </tr>
+                      <tr>
+                        <td>Vector de ataque.</td>
+                        <td>Proveedor de software</td>
+                      </tr>
+                      <tr>
+                        <td>Impacto técnico / operativo.</td>
+                        <td>Reputación, pausa de servicio de los clientes.</td>
+                      </tr>
+                      <tr>
+                        <td>Medida de control recomendada.</td>
+                        <td>Siempre validar la entrada de software.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                <h5>Escenario 4</h5>
+                  <p>Mediante campañas de phishing, atacantes obtuvieron credenciales válidas y accedieron a sistemas corporativos durante meses sin levantar alertas. Aunque la autenticación funcionó técnicamente, el servicio de autenticación fue comprometido al basarse en credenciales robadas, afectando también el control de acceso. Según el RFC 4949, se trata de un credential compromise con authentication failure conceptual, no técnica. La falta de MFA y de monitoreo de comportamiento facilitó la persistencia del atacante.</p>
+                  <table class="cronologia">
+                    <thead>
+                      <th>Elemento</th>
+                      <th>Control de acceso, autenticación</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Servicios X.800 comprometidos</td>
+                        <td>Autenticación, integridad y confidencialidad de datos</td>
+                      </tr>
+                      <tr>
+                        <td>Definición(es) aplicable(s) RFC 4949.</td>
+                        <td>
+                          <p>Credential compromise (credenciales que fueron expuestas ante potenciales accesos no autorizados)</p>
+                        </td>                      
+                      </tr>
+                      <tr>
+                        <td>Tipo de amenaza.</td>
+                        <td>Saltarse los parámetros de seguridad</td>
+                      </tr>
+                      <tr>
+                        <td>Vector de ataque.</td>
+                        <td>Phishing</td>
+                      </tr>
+                      <tr>
+                        <td>Impacto técnico / operativo.</td>
+                        <td>Limpieza de usuarios no autorizados, análisis de que fue lo que hicieron los atacantes en el tiempo que no levantaron alertas.</td>
+                      </tr>
+                      <tr>
+                        <td>Medida de control recomendada.</td>
+                        <td>MFA y constantes monitoreos de accesos.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                <h5>Escenario 5</h5>
+                  <p>En ataques de ransomware avanzados, los atacantes eliminaron o cifraron los respaldos antes de afectar los sistemas productivos. Este hecho compromete directamente la disponibilidad y la integridad de la información, al impedir la recuperación. El RFC 4949 clasifica este comportamiento como data destruction y availability attack, evidenciando intención deliberada de maximizar el daño. La inexistencia de respaldos offline o inmutables convierte el incidente en catastrófico.</p>
+                  <table class="cronologia">
+                    <thead>
+                      <th>Elemento</th>
+                      <th>Respuesta</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Servicios X.800 comprometidos</td>
+                        <td>Disponibilidad, integridad de datos</td>
+                      </tr>
+                      <tr>
+                        <td>Definición(es) aplicable(s) RFC 4949.</td>
+                        <td>
+                          <p>Data destruction (borrado de información sensible)</p>
+                          <p>availability attack (ataque directo a la disponibilidad del sistema o de recursos de sistemas que lo hacen inutilizable)</p>
+                        </td>                      
+                      </tr>
+                      <tr>
+                        <td>Tipo de amenaza.</td>
+                        <td>Intención deliberada de maximización de daño</td>
+                      </tr>
+                      <tr>
+                        <td>Vector de ataque.</td>
+                        <td>Credenciales robadas o phishing</td>
+                      </tr>
+                      <tr>
+                        <td>Impacto técnico / operativo.</td>
+                        <td>Pérdida total de datos.</td>
+                      </tr>
+                      <tr>
+                        <td>Medida de control recomendada.</td>
+                        <td>MFA, respaldos offline.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                <h5>Escenario 6</h5>
+                  <p>Un empleado con acceso legítimo extrajo bases de datos completas y las vendió a terceros, sin explotar vulnerabilidades técnicas. El servicio afectado fue principalmente la confidencialidad, junto con fallas en el control de acceso por exceso de privilegios. El RFC 4949 define este escenario como insider threat, destacando que el riesgo interno puede ser tan grave como el externo. La carencia de monitoreo y de políticas de mínimo privilegio fue determinante.</p>
+                  <table class="cronologia">
+                    <thead>
+                      <th>Elemento</th>
+                      <th>Respuesta</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Servicios X.800 comprometidos</td>
+                        <td>Confidencialidad de datos</td>
+                      </tr>
+                      <tr>
+                        <td>Definición(es) aplicable(s) RFC 4949.</td>
+                        <td>
+                          <p>Data destruction (borrado de información sensible)</p>
+                          <p>Insider threat (un usuario que tiene acceso al sistema y está dentro del perímetro de seguridad, volviéndolo una amenaza si se lo propone o hasta en casos de negligencia)</p>
+                        </td>                      
+                      </tr>
+                      <tr>
+                        <td>Tipo de amenaza.</td>
+                        <td>Interno y externo por la información vendida</td>
+                      </tr>
+                      <tr>
+                        <td>Vector de ataque.</td>
+                        <td>Empleado con accesos</td>
+                      </tr>
+                      <tr>
+                        <td>Impacto técnico / operativo.</td>
+                        <td>Reputación, investigación del usuario en cuestión, investigación de que información ha sido vendida.</td>
+                      </tr>
+                      <tr>
+                        <td>Medida de control recomendada.</td>
+                        <td>Control de privilegios al mínimo por roles y módulos establecidos.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                <h5>Escenario 7</h5>
+                  <p>Tras un ataque, los registros del sistema quedaron cifrados o alterados, impidiendo reconstruir la secuencia de eventos. Esto compromete la integridad de los datos y el no repudio, ya que no es posible demostrar qué ocurrió ni quién fue responsable. Desde el RFC 4949, se trata de una violación de evidentiary integrity y del audit trail. El impacto no solo es técnico, sino también probatorio y legal.</p>
+                  <table class="cronologia">
+                    <thead>
+                      <th>Elemento</th>
+                      <th>Respuesta</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Servicios X.800 comprometidos</td>
+                        <td>No repudio, integridad de los datos</td>
+                      </tr>
+                      <tr>
+                        <td>Definición(es) aplicable(s) RFC 4949.</td>
+                        <td>
+                          <p>Evidentiary integrity (Es el que la evidencia no ha sido manipulada o alterada)</p>
+                          <p>Audit Trail (Es el orden cronológico de los hechos que se reconstruye para examinar la secuencia actividades que rodean una actividad o evento)</p>
+                        </td>                      
+                      </tr>
+                      <tr>
+                        <td>Tipo de amenaza.</td>
+                        <td>Persistencia al desconocer el origen de los hechos y no saber quien es el atacante</td>
+                      </tr>
+                      <tr>
+                        <td>Vector de ataque.</td>
+                        <td>Scripts para borrar o cifrar la evidencia, accesos privilegiados al sistema.</td>
+                      </tr>
+                      <tr>
+                        <td>Impacto técnico / operativo.</td>
+                        <td>La integridad de registros baja, legal</td>
+                      </tr>
+                      <tr>
+                        <td>Medida de control recomendada.</td>
+                        <td>Controlar accesos, logs protegidos.</td>
+                      </tr>
+                    </tbody>
+                  </table>         
+            </div>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Conclusión</h4>
+                  <p>Al término del análisis de los escenarios, se puede ver que hay muchos problemas y riesgos muy graves que pueden llegar a ocurrir por errores en el control de accesos y el como se manejan la protección de los logs o respaldos del sistema. Por un lado desafortunado hay muchas brechas o vectores por el que una amenaza podría entrar, pero también hay muchas maneras de mitigarlas y es por eso que se puede concluir que conocer estos marcos X.800 y el RFC 4949, no son conocimiento vano, sino que son conceptos y normas claves que encaminan hacia como cuidar y proteger los sistemas de redes contra los ataques que podrían tirar gran parte de una corporación, pues hoy en día hay muchas vulnerabilidades y todo por un desconocimiento o por un sentido de altivez, pero como se pudo ver en los escenarios, nadie está exento, ni siquiera se puede asegurar que la amenaza no podría entrar por algún proveedor de software de confianza o venir de un empleado interno (ya sea con la intención de hacer daño o por negligencia).</p>
+                  <p>En fin, a pesar de que se puede mejorar el análisis hecho en este trabajo, es un motor para que uno como individuo se de cuenta que aun hay mucho por saber e informarse, pues esta actividad abrió el panorama sobre los riesgos que hay, pero también sobre las medidas que se pueden tomar como recomendación del X.800 y como clasificar las amenazas por el glosario RFC-4949 para así encontrar el origen y mitigar el daño, nuestra seguridad en la red depende de eso.</p>
+            </div>
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

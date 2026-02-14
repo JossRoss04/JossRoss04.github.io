@@ -1,0 +1,85 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Actividad 3 - Parcial 1 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="PF01" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">Actividad 4: MECANISMOS DE DEFENSA EN RED. </h1>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Introducción</h4>
+                  <p>En este trabajo, se realizaran comandos que sirvan para restringir o permitir cierto trafico de paquetes. Esto con el fin de comprender el tema de como funciona la topologia de redes y las reglas de los iptables.</p>
+            </div>
+
+            <div class="titulo-separador"></div>
+
+
+            <div class="content-container">
+              <h4>Mecanismos</h4>
+                <h5>1. Establecer una política restrictiva</h5>
+                  <p>Respuesta: Iptables -L -v -n</p>
+
+                <h5>2. Permitir el tráfico de conexiones ya establecidas</h5>
+                  <p>Respuesta: Iptables -A INPUT -m state Established -j Accept</p>
+
+                <h5>3. Aceptar tráfico DNS (TCP) saliente de la red local</h5>
+                  <p>Respuesta: Iptables -A OUTPUT -p tcp –sports 53 -s 192.1.2.* -j Accept</p>
+
+                <h5>4. Aceptar correo entrante proveniente de internet en el servidor de correo</h5>
+                  <p>Respuesta: Iptables -A INPUT -p tcp –s 0.0.0.0 -d 192.1.2.11 -j Accept</p>
+
+                <h5>5. Aceptar correo saliente desde el servidor de correo</h5>
+                  <p>Respuesta: Iptables -A OUTPUT -p tcp –d 0.0.0.0 -s 192.1.2.11 -j Accept</p>
+
+                <h5>6. Aceptar conexiones HTTP desde internet a nuestro servidor web</h5>
+                  <p>Respuesta: Iptables -A INPUT -p tcp -dports 80 -s 0.0.0.0 -j Accept</p>
+
+                <h5>7. Permitir tráfico HTTP desde la red local a Internet</h5>
+                  <p>Respuesta: Iptables -A OUTPUT -p tcp –dports 80 -d 0.0.0.0</p>                                     
+            </div>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Conclusión</h4>
+                  <p>Entender este tema es importante pues como estudiante puedo ver como es que se ejecutan los comandos importantes respecto a los mecanismos de defensa de red, ademas de subtemas de como entender las cadenas, tablas y la acción de cada regla.</p>
+                  <p>Me ayuda como estudiante a comprender mejor cómo funcionan los sistemas de protección de red y cómo se aplican las reglas de firewall para garantizar la seguridad de los recursos en una red.</p>
+            </div>
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>
