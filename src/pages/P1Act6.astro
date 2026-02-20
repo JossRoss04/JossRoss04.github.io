@@ -47,7 +47,7 @@ const projects = [
             <div class="content-container">
               <h4>1-Topología</h4>
                 <p>Para este paso, se hace uso de tres routers 1941, dos switches 2960-24TT y dos computadoras como se muestra en la siguiente imagen:</p>
-                <img src="../public/documentos/topologia.png" class="mi-imagen" alt="topología">
+                <img src="/public/assets/documentos/topologia.png" class="mi-imagen" alt="topología">
             </div>
 
             <div class="titulo-separador"></div>
@@ -59,15 +59,15 @@ const projects = [
                   <p>Para cada router se seguirá el mismo procedimiento, en este caso empezaremos con el ISP, que es el que estará        
                     funcionando como un puente de Internet para los demás routers.
                     Primero empezamos configurando desde la terminal con estos comandos Enable y Config terminal</p>
-                  <img src="/public/documentos/enableTerminal.png" class="mi-imagen" alt="activando config Terminal">
-                  <img src="/public/documentos/configuracionInicial.png" class="mi-imagen" alt="configuracion inicial ISP">
+                  <img src="/public/assets/documentos//enableTerminal.png" class="mi-imagen" alt="activando config Terminal">
+                  <img src="/public/assets/documentos//configuracionInicial.png" class="mi-imagen" alt="configuracion inicial ISP">
                   <p>Se configuran las salidas de los gigabit Ethernet g0/0 y g0/1 con sus respectivas IP’s, estos serán las salidas para los otros dos routers R1 y R3.</p>
                 <h5>R1</h5>
                   <p>Se realizan los mismos procedimientos en R1</p>
-                  <img src="/public/documentos/configuracionInicialR1.png" class="mi-imagen" alt="configuracion inicial R1">
+                  <img src="/public/assets/documentos//configuracionInicialR1.png" class="mi-imagen" alt="configuracion inicial R1">
                 <h5>R3</h5>
                   <p>Se realizan los mismos procedimientos en R3</p>
-                  <img src="/public/documentos/configuracionInicialR3.png" class="mi-imagen" alt="configuracion inicial R3">
+                  <img src="/public/assets/documentos//configuracionInicialR3.png" class="mi-imagen" alt="configuracion inicial R3">
             </div>
 
             <div class="titulo-separador"></div>
@@ -77,22 +77,22 @@ const projects = [
                 <h5>Fase 1: Isakmp policy</h5>
                   <p>Para este paso nos dirigimos a uno de los dos routers R1 y R3
                     El comando de la ultima linea sirve para crear una politica de seguridad de prioridad 10</p>
-                  <img src="/public/documentos/policy10.png" class="mi-imagen" alt="politica 10">
+                  <img src="/public/assets/documentos//policy10.png" class="mi-imagen" alt="politica 10">
                   <p>Se habilita la encriptación aes 256 y se habilita la autenticación pre-compartida</p>
-                  <img src="/public/documentos/cifradoaes.png" class="mi-imagen" alt="cifrado aes">
+                  <img src="/public/assets/documentos//cifradoaes.png" class="mi-imagen" alt="cifrado aes">
                   <p>escribimos el group 5 para el intercambio de claves de Diffie-Hellman</p>
-                  <img src="/public/documentos/grupo5.png" class="mi-imagen" alt="grupo 5">
+                  <img src="/public/assets/documentos//grupo5.png" class="mi-imagen" alt="grupo 5">
                   <p>Finalmente asignamos una clave secreta compartida con su otro router R3</p>
-                  <img src="/public/documentos/secretkey.png" class="mi-imagen" alt="clave secreta">
+                  <img src="/public/assets/documentos//secretkey.png" class="mi-imagen" alt="clave secreta">
                 <h5>Fase 2: Ipsec transform set</h5>
                   <p>Consecuentemente, definimos el conjunto de transformación de cifrado aes y autenticación sha</p>
-                  <img src="/public/documentos/transformset.png" class="mi-imagen" alt="transform set">
+                  <img src="/public/assets/documentos//transformset.png" class="mi-imagen" alt="transform set">
                   <p>Y creamos un mapa criptográfico con secuencia 10 que sirve para gestionar múltiples túneles VPN en un mismo router de manera organizada.</p>
-                  <img src="/public/documentos/cryptomap.png" class="mi-imagen" alt="crypto map">
+                  <img src="/public/assets/documentos//cryptomap.png" class="mi-imagen" alt="crypto map">
                   <p>Y definimos al peer del router que en este caso seria hacia R3</p>
-                  <img src="/public/documentos/peer.png" class="mi-imagen" alt="peer">
+                  <img src="/public/assets/documentos//peer.png" class="mi-imagen" alt="peer">
                   <p>Establecemos el mismo conjunto de transformación para R3 con:</p>
-                  <img src="/public/documentos/transformsetR3.png" class="mi-imagen" alt="transform set R3">                  
+                  <img src="/public/assets/documentos//transformsetR3.png" class="mi-imagen" alt="transform set R3">                  
             </div>
 
             <div class="titulo-separador"></div>
@@ -100,9 +100,9 @@ const projects = [
             <div class="content-container">
               <h4>Crear el mapa criptográfico</h4>
                 <p>Y establecemos el mapa criptografico para g0/0</p>
-                <img src="/public/documentos/cryptoMapg00.png" class="mi-imagen" alt="crypto map g0/0">
+                <img src="/public/assets/documentos//cryptoMapg00.png" class="mi-imagen" alt="crypto map g0/0">
                 <p>Se define el trafico que debe ser protegido (ACL)</p>
-                <img src="/public/documentos/acl.png" class="mi-imagen" alt="ACL">
+                <img src="/public/assets/documentos//acl.png" class="mi-imagen" alt="ACL">
             </div>
 
             <div class="titulo-separador"></div>
@@ -111,20 +111,20 @@ const projects = [
               <h4>Aplicar todo a R3</h4>
                 <p>Terminado con R1, pasamos a R3.
                   Se realiza la misma serie de comandos pero cambiando la dirección IP para compartir las claves con su peer R1</p>
-                <img src="/public/documentos/peerR3.png" class="mi-imagen" alt="peer R3">
+                <img src="/public/assets/documentos//peerR3.png" class="mi-imagen" alt="peer R3">
                 <p>Una vez llegado a este punto, hemos terminado y configurado el túnel VPN a través de IPSEC</p>
-                <img src="/public/documentos/tunel.png" class="mi-imagen" alt="tunel VPN">                
+                <img src="/public/assets/documentos//tunel.png" class="mi-imagen" alt="tunel VPN">                
             </div>
 
             <div class="content-container">
               <h4>Pruebas y verificación</h4>
                 <p>Para probar el funcionamiento hay de dos formas, una por un ping desde una computadora y otra con el comando SHOW      
                   CRYPTO IPSEC SA Realizamos un ping de PC0 a PC1</p>
-                <img src="/public/documentos/ping.png" class="mi-imagen" alt="ping">
+                <img src="/public/assets/documentos//ping.png" class="mi-imagen" alt="ping">
                 <p>Y se puede comprobar el funcionamiento del túnel pues todos los paquetes fueron recibidos correctamente.</p>
-                <img src="/public/documentos/ping2.png" class="mi-imagen" alt="ping 2">
+                <img src="/public/assets/documentos//ping2.png" class="mi-imagen" alt="ping 2">
                 <p>Al igual que podemos ver el STATUS activo del crypto</p>
-                <img src="/public/documentos/status.png" class="mi-imagen" alt="status">                
+                <img src="/public/assets/documentos//status.png" class="mi-imagen" alt="status">                
             </div>
 
             <div class="titulo-separador"></div>
