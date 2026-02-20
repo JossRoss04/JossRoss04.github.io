@@ -19,6 +19,11 @@ section {
 
 a {
   background-color: rgba(0, 0, 0, 0);
+  color: #818080;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 a:active,
@@ -33,6 +38,12 @@ h1 {
 
 img {
   border: 0;
+}
+.mi-imagen {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 @font-face {
@@ -108,7 +119,13 @@ h4 {
   font-size: 18px;
   line-height: 24px;
 }
-
+.lista{
+  font-size: 30px;
+  color: #a8a8a8;
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding-left: 40px;
+}
 p {
   margin-top: 0;
   margin-bottom: 10px;
@@ -122,6 +139,9 @@ p {
   text-indent: 40px;
 }
 
+.lista li{
+  margin-bottom: 10px;
+}
 ul {
   margin-top: 0;
   margin-bottom: 10px;
@@ -175,6 +195,9 @@ ul {
   padding: 12px 15px;
   text-align: center;
   color: #d4d4d4;
+  max-width: 250px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .cronologia th {

@@ -1,0 +1,148 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Actividad 6 - Parcial 1 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="PF01" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">Actividad 6: Implementación IPSec VPN</h1>
+            <a href="/documentos/181760-act06.pdf" download class="btn-descarga">
+              Exportar a PDF
+            </a>
+            <div class="titulo-separador"></div>
+
+            <driv class="content-container">
+              <h4>Introducción</h4>
+                  <p>En esta práctica se realizó la implementación de una VPN utilizando IPSec en el entorno de simulación Cisco Packet Tracer. El objetivo principal fue configurar un canal de comunicación seguro entre dos redes, permitiendo el intercambio de información de manera cifrada a través de una red pública simulada. El uso de Packet Tracer facilitó la visualización del comportamiento de los dispositivos de red y la forma en que responden ante la configuración de una VPN, permitiendo aplicar de manera práctica los conceptos teóricos relacionados con seguridad en redes y comunicaciones seguras.
+                  </p>
+            </div>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>1-Topología</h4>
+                <p>Para este paso, se hace uso de tres routers 1941, dos switches 2960-24TT y dos computadoras como se muestra en la siguiente imagen:</p>
+                <img src="/public/documentos/topologia.png" class="mi-imagen" alt="topología">
+            </div>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>2-Configuración Inicial</h4>
+                <p>Se configuran los routers por la terminal CLI, esto con el fin de utilizar comandos y permitirnos más versatilidad.</p>
+                <h5>ISP</h5>
+                  <p>Para cada router se seguirá el mismo procedimiento, en este caso empezaremos con el ISP, que es el que estará        
+                    funcionando como un puente de Internet para los demás routers.
+                    Primero empezamos configurando desde la terminal con estos comandos Enable y Config terminal</p>
+                  <img src="/public/documentos/enableTerminal.png" class="mi-imagen" alt="activando config Terminal">
+                  <img src="/public/documentos/configuracionInicial.png" class="mi-imagen" alt="configuracion inicial ISP">
+                  <p>Se configuran las salidas de los gigabit Ethernet g0/0 y g0/1 con sus respectivas IP’s, estos serán las salidas para los otros dos routers R1 y R3.</p>
+                <h5>R1</h5>
+                  <p>Se realizan los mismos procedimientos en R1</p>
+                  <img src="/public/documentos/configuracionInicialR1.png" class="mi-imagen" alt="configuracion inicial R1">
+                <h5>R3</h5>
+                  <p>Se realizan los mismos procedimientos en R3</p>
+                  <img src="/public/documentos/configuracionInicialR3.png" class="mi-imagen" alt="configuracion inicial R3">
+            </div>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Configuración de VPN</h4>
+                <h5>Fase 1: Isakmp policy</h5>
+                  <p>Para este paso nos dirigimos a uno de los dos routers R1 y R3
+                    El comando de la ultima linea sirve para crear una politica de seguridad de prioridad 10</p>
+                  <img src="/public/documentos/policy10.png" class="mi-imagen" alt="politica 10">
+                  <p>Se habilita la encriptación aes 256 y se habilita la autenticación pre-compartida</p>
+                  <img src="/public/documentos/cifradoaes.png" class="mi-imagen" alt="cifrado aes">
+                  <p>escribimos el group 5 para el intercambio de claves de Diffie-Hellman</p>
+                  <img src="/public/documentos/grupo5.png" class="mi-imagen" alt="grupo 5">
+                  <p>Finalmente asignamos una clave secreta compartida con su otro router R3</p>
+                  <img src="/public/documentos/secretkey.png" class="mi-imagen" alt="clave secreta">
+                <h5>Fase 2: Ipsec transform set</h5>
+                  <p>Consecuentemente, definimos el conjunto de transformación de cifrado aes y autenticación sha</p>
+                  <img src="/public/documentos/transformset.png" class="mi-imagen" alt="transform set">
+                  <p>Y creamos un mapa criptográfico con secuencia 10 que sirve para gestionar múltiples túneles VPN en un mismo router de manera organizada.</p>
+                  <img src="/public/documentos/cryptomap.png" class="mi-imagen" alt="crypto map">
+                  <p>Y definimos al peer del router que en este caso seria hacia R3</p>
+                  <img src="/public/documentos/peer.png" class="mi-imagen" alt="peer">
+                  <p>Establecemos el mismo conjunto de transformación para R3 con:</p>
+                  <img src="/public/documentos/transformsetR3.png" class="mi-imagen" alt="transform set R3">                  
+            </div>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Crear el mapa criptográfico</h4>
+                <p>Y establecemos el mapa criptografico para g0/0</p>
+                <img src="/public/documentos/cryptoMapg00.png" class="mi-imagen" alt="crypto map g0/0">
+                <p>Se define el trafico que debe ser protegido (ACL)</p>
+                <img src="/public/documentos/acl.png" class="mi-imagen" alt="ACL">
+            </div>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Aplicar todo a R3</h4>
+                <p>Terminado con R1, pasamos a R3.
+                  Se realiza la misma serie de comandos pero cambiando la dirección IP para compartir las claves con su peer R1</p>
+                <img src="/public/documentos/peerR3.png" class="mi-imagen" alt="peer R3">
+                <p>Una vez llegado a este punto, hemos terminado y configurado el túnel VPN a través de IPSEC</p>
+                <img src="/public/documentos/tunel.png" class="mi-imagen" alt="tunel VPN">                
+            </div>
+
+            <div class="content-container">
+              <h4>Pruebas y verificación</h4>
+                <p>Para probar el funcionamiento hay de dos formas, una por un ping desde una computadora y otra con el comando SHOW      
+                  CRYPTO IPSEC SA Realizamos un ping de PC0 a PC1</p>
+                <img src="/public/documentos/ping.png" class="mi-imagen" alt="ping">
+                <p>Y se puede comprobar el funcionamiento del túnel pues todos los paquetes fueron recibidos correctamente.</p>
+                <img src="/public/documentos/ping2.png" class="mi-imagen" alt="ping 2">
+                <p>Al igual que podemos ver el STATUS activo del crypto</p>
+                <img src="/public/documentos/status.png" class="mi-imagen" alt="status">                
+            </div>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Conclusión</h4>
+                  <p>En esta práctica de implementación de una VPN con IPSec pude comprender mejor cómo se establece un canal de comunicación seguro dentro de una red. No solo se trata de cifrar el tráfico, sino de todo el proceso previo de negociación de parámetros, autenticación entre los extremos e intercambio de claves para poder crear una conexión protegida. En general, la actividad me permitió ver que IPSec es un mecanismo completo de protección de comunicaciones, ya que no solo cifra los datos, sino que también controla el acceso y garantiza que la información no sea modificada durante la transmisión.</p>
+            </div>
+              <a href="/documentos/181760-act06.pdf" download class="btn-descarga">
+                Exportar a PDF
+              </a>
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

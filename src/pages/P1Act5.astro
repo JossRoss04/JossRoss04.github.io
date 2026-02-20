@@ -1,0 +1,365 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Actividad 5 - Parcial 1 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="PF01" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">Actividad 5: Cartografiando el pentesting: análisis comparativo de metodologías de seguridad informática </h1>
+            <a href="/documentos/181760-act05.pdf" download class="btn-descarga">
+              Exportar a PDF
+            </a>
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Introducción</h4>
+                  <p>Es esta presente actividad, se estara llevando una comparativa entre las metodologías de seguridad informática más reconocidas del mercado, con el fin de identificar sus similitudes y diferencias.
+                  Conocer de estas nos proporcionan una visión más clara de las mejores prácticas y enfoques para proteger los sistemas de información, lo que es fundamental para cualquier profesional de la ciberseguridad. Pues el "testear" no es solo ir a buscar vulnerabilidades, sino también es importante tener un marco de referencia para entender cómo se deben realizar las pruebas, cómo se deben documentar los hallazgos y cómo se deben comunicar los resultados a los equipos de desarrollo y a la alta dirección.
+                  </p>
+            </div>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Tabla comparativa</h4>
+                    <table class="cronologia">
+                    <thead>
+                      <th>Aspecto</th>
+                      <th>MTRE ATT& CK</th>
+                      <th>OWASP WSTG</th>
+                      <th>NIST SP 800 115</th>
+                      <th>OSSTMM</th>
+                      <th>PTES</th>
+                      <th>ISSAF</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Descripción breve de la metodología</td>
+                        <td>
+                            Se refiere a un grupo de tácticas organizadas en una matriz, que
+                            describen varias técnicas que utilizan los cazadores de amenazas,
+                            defensores y miembros del equipo rojo para evaluar el riesgo para
+                            una organización y clasificar los ataques.
+                        </td>
+                        <td>
+                          Describe un marco de pruebas de aplicaciones
+                          web sugerido y también proporciona
+                          información general sobre cómo probar
+                          aplicaciones web con buenas prácticas de
+                          prueba.
+                        </td>
+                        <td>
+                          Es una guía, por lo tanto ofrece metodologías, técnicas y
+                            procedimientos:
+                            <ul>
+                              <li>Planificación de la Evaluación de Seguridad</li>
+                              <li>Ejecución de la Evaluación de Seguridad</li>
+                              <li>Actividades Post-Pruebas</li>
+                              <li>Escaneo de Vulnerabilidades</li>
+                              <li>Técnicas de Pruebas de Seguridad</li>
+                              <li>Pruebas de Penetración</li>
+                            </ul>
+                        </td>
+                        <td>
+                          Este manual proporciona un marco de
+                          trabajo que describe las fases a seguir en la
+                          ejecución de una auditoría de seguridad o
+                          Pentesting
+                        </td>
+                        <td>
+                          Es un estandar que sirve como
+                          guía para la ejecución de pruebas
+                          de pentesting. Que ofrece un
+                          marco estructurado y sistematico
+                          con el fin de proporcionar
+                          claridad y uniformidad.
+                        </td>
+                        <td>
+                          Es una extensa metodología donde detalla 3 fases
+                          para realizar una prueba de penetración. En esta hay
+                          un acuerdo de evaluacion que sirve como acuerdo
+                          legal entre ambas partes y distribuye sus pruebas de
+                          penetración en varias capas.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Fases de implementación.</td>
+                        <td>
+                          Técnicas que representan las etapas del ciclo de
+                          vida de un ataque de un adversario:
+                          <ol>
+                            <li>Reconocimiento</li>
+                            <li>Desarrollo de recursos</li>
+                            <li>Acceso inicial</li>
+                            <li>Ejecución</li>
+                            <li>Persistencia</li>
+                            <li>Escalada de privilegios</li>
+                            <li>Evasión de defensa</li>
+                            <li>Acceso a credenciales</li>
+                            <li>Descubrimiento</li>
+                            <li>Movimiento lateral (amplia el alcance)</li>
+                            <li>Colección</li>
+                            <li>Mando y control</li>
+                            <li>Exfiltración</li>
+                            <li>Impacto</li>
+                          </ol>
+                        </td>
+                        <td>
+                          <ol>
+                            <li>Planificación y alcance</li>
+                            <li>Configuración y Reconocimiento</li>
+                            <li>Ejecución de pruebas</li>
+                            <li>Informes y remedación</li>  
+                          </ol>  
+                        </td>
+                        <td>
+                          <li>Planeación y preparación</li>
+                          <li>Recolección de información</li>
+                          <li>Analisis de vulnerabilidades y explotación</li>
+                          <li>Actividades Post-testeo Resumen ejecutivo y
+                            Apendice técnico)</li>
+                        </td>
+                        <td>
+                          <ol>
+                            <li>Seguridad de la Información</li>
+                            <li>Procesos de Seguridad</li>
+                            <li>Tecnologías de Internet y su Seguridad</li>
+                            <li>Comunicaciones y Seguridad</li>
+                            <li>Seguridad Inalámbrica</li>
+                            <li>Evaluación de la Seguridad Física</li>                            
+                          </ol>
+                        </td>
+                        <td>
+                          <ol>
+                            <li>Definición de alcance</li>
+                            <li>Recopilación de información</li>
+                            <li>Explotación</li>
+                            <li>Post-explotación</li>
+                          </ol>  
+                        </td>
+                        <td>
+                          <ul>
+                            <li>Fase 1</li>
+                            <li>Fase 2</li>
+                            <li>Fase 3</li>  
+                          </ul>  
+                        </td>                      
+                      </tr>
+                      <tr>
+                        <td>Objetivo principal</td>
+                        <td>Es fortalecer los pasos que se toman después de que una organización
+                            se ha visto comprometida. De esta manera, el equipo de ciberseguridad
+                            puede responder preguntas importantes sobre cómo el atacante pudo
+                            penetrar en el sistema y qué hizo una vez que ingresó.</td>
+                        <td>Proporcionar un marco de mejores prácticas
+                            comúnmente utilizadas por testeadores de
+                            penetración externos y organizaciones que
+                            realizan pruebas internas.</td>
+                        <td>Proporciona a las organizaciones una visión general
+                            comprensiva y orientación sobre cómo realizar pruebas y
+                            evaluaciones de seguridad. El documento está destinado
+                            a dar a las organizaciones un enfoque estructurado para
+                            identificar vulnerabilidades y debilidades en sus sistemas
+                            de información, validar la efectividad de las medidas de
+                            seguridad y asegurar el cumplimiento de las políticas y
+                            regulaciones de seguridad.</td>
+                        <td>Realización de pruebas de seguridad
+                            informática, proporcionando una
+                            metodología detallada para evaluar la
+                            seguridad en diversos sistemas, desde
+                            redes y aplicaciones web hasta dispositivos
+                            móviles y sistemas de control industrial.</td>
+                        <td>Que la realización del pentesting
+                            cubra y reporte todos los
+                            hallazgos, pues cumple
+                            estandares de calidad. Además
+                            da gran aportación pues mitiga
+                            riesgos por su eficiencia
+                            operativa y sistematica.</td>
+                        <td>Realización de pruebas de penetración con base y
+                            acuerdos legales entre ambas partes.</td>                       
+                      </tr>
+                      <tr>
+                        <td>Escenarios en los que se utiliza</td>
+                        <td>
+                          <ol>
+                            <li>Compartir información entre organizaciones sobre cómo se
+                                comportan las amenazas</li>
+                            <li>Emulando el comportamiento y las tácticas de diferentes tipos de
+                                hackers con fines de capacitación interna</li>
+                            <li>Averiguar qué tácticas se utilizan con más frecuencia para que los
+                                equipos de ciberdefensa puedan estar atentos a ellas</li>
+                          </ol>
+                        </td>
+                        <td>
+                          <ul>
+                            <li>Gestión de Configuración y Despliegue</li>
+                            <li>Gestión de Identidad</li>
+                            <li>Autenticación</li>
+                            <li>Autorización</li>
+                            <li>Gestión de Sesiones</li>
+                            <li>Validación de Entrada</li>
+                            <li>Manejo de Errores</li>
+                            <li>Criptografía Débil</li>
+                            <li>Lógica de Negocio</li>
+                            <li>Del lado del cliente</li>
+                            <li>API</li>
+                          </ul>
+                        </td>
+                        <td>
+                          Se aplica en términos generales a cualquier organización
+                          o entidad que desee realizar pruebas y evaluaciones de
+                          seguridad de sus sistemas de información. Esto incluye
+                          agencias gubernamentales, empresas del sector privado
+                          y organizaciones sin fines de lucro
+                        </td>
+                        <td>
+                          Al momento de realizar un lanzamiento de
+                            una página web o aplicación y que se desee
+                            realizar una evaluación de seguridad
+                            correcta
+                        </td>
+                        <td>Se aplica en momentos donde se
+                            requiere de una buena
+                            documentación detallada sobre
+                            los riesgos hallados y se desee
+                            mas pruebas exhaustivas
+                            respecto a la seguridad de un
+                            sistema.
+                        </td>
+                        <td>
+                          Cuando se requieren realizar pruebas de evaluación
+                          con el fin de tomar decisiones sobre los riegos que
+                          salieron, al ser muy extenso abarca todas las fases
+                          de una evaluación de seguridad, desde la
+                          planificación hasta la mitigación de riegos.                          
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Orientación</td>
+                        <td>Evaluación</td>
+                        <td>Defensa</td>
+                        <td>Evaluación</td>
+                        <td>Pruebas</td>
+                        <td>Evaluación de ataques.</td>
+                        <td>Evaluación</td>
+                      </tr>
+                      <tr>
+                        <td>Autores u organismos responsables.</td>
+                        <td>MIT</td>
+                        <td>The OWASP® Foundation</td>
+                        <td>NIST National Institute of Standards and Technology)</td>
+                        <td>ISECOM</td>
+                        <td>No organismo oficial</td>
+                        <td>OISSG Open Information Systems Security Group)</td>
+                      </tr>
+                      <tr>
+                        <td>URL del material oficial</td>
+                        <td><a href="https://attack.mitre.org" target="_blank">MTRE ATT& CK</a></td>
+                        <td><a href="https://owasp.org/www-project-web-security-testing-guide/" target="_blank">OWASP</a></td>
+                        <td><a href="https://www.nist.gov/privacy-framework/nist-sp-800-115" target="_blank">NIST SP 800-115</a></td>
+                        <td><a href="https://www.isecom.org/OSSTMM.3.pdf" target="_blank">OSSTMM</a></td>
+                        <td><a href="http://www.pentest-standard.org/index.php/Main_Page" target="_blank">PTES</a></td>
+                        <td><a href="https://pymesec.org/issaf/" target="_blank">ISSAF</a></td>
+                      </tr>
+                      <tr>
+                        <td>Existencia de certificaciones asociadas.</td>
+                        <td>No cuenta con certificaciones asociadas</td>
+                        <td>No cuenta con certificaciones asociadas</td>
+                        <td>No cuenta con certificaciones asociadas</td>
+                        <td>OPSA OSSTMM Professional Security
+                            Analyst)
+                            OPST OSSTMM Professional Security
+                            Tester)</td>
+                        <td>No cuenta con certificaciones asociadas</td>
+                        <td>No cuenta con certificaciones asociadas</td>
+                      </tr>
+                      <tr>
+                        <td>Versiones o actualizaciones vigentes.</td>
+                        <td>ATT&CK v18.1 - 28 de Octubre del 2025</td>
+                        <td>Version 4.2 - 20201203</td>
+                        <td>La actualización más reciente fue lanzada en abril de
+                            2021.</td>
+                        <td>Ultima version 14 de Diciembre del 2010.</td>
+                        <td>Última edición 30 de abril del
+                            2012</td>
+                        <td>2006</td>
+                      </tr>
+                      <tr>
+                        <td>Fuentes Consultadas</td>
+                        <td>
+                          <ol>
+                            <li>
+                              <a href="https://www.ibm.com/mx-es/think/topics/mitre-attack" target="_blank">Fuente 1</a>
+                            </li>
+                            <li><a href="https://www.fortinet.com/lat/resources/cyberglossary/mitre-attck" target="_blank">Fuente 2</a></li>
+                          </ol>
+                        </td>
+                        <td>
+                          <a href="https://devguide.owasp.org/es/06
+verification/01-guides/01-wstg/" target="_blank">Fuente 1</a>
+                        </td>
+                        <td>
+                          <a href="https://secureframe.com/es-es/frameworks-glossary/nist-800-115" target="_blank">Fuente 1</a>
+                        </td>
+                        <td>
+                          <a href="https://www.dragonjar.org/osstmm-manualde-
+                            la-metodologia-abierta-de-testeo-deseguridad.
+                            xhtml#Fundamentos_y_relevancia_de_OSST
+                            MM_en_la_proteccion_digital" target="_blank">Fuente 1</a>
+                        </td>
+                        <td>
+                          <a href="https://www.tuconsultorti.com/ciberseguridad/que-es-el-ptes/?srsltid=AfmBOootLFua-dWGsnZEp_0XPLq2WggdaM1elgBbcvZ1cOKgoLlIJiCak" target="_blank">Fuente 1</a>
+                        </td>
+                        <td>
+                          <a href="https://pymesec.org/issaf/" target="_blank">Fuente 1</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>    
+            </div>
+
+            <div class="titulo-separador"></div>
+
+            <div class="content-container">
+              <h4>Conclusión</h4>
+                  <p>La comparación entre las metodologías de seguridad informática más reconocidas del mercado nos permite identificar sus similitudes y diferencias, lo cual es fundamental para entender cómo se deben aplicar en contextos específicos. Cada metodología tiene sus fortalezas, y su elección dependerá de los objetivos del proyecto, el entorno de seguridad y los recursos disponibles. Esta actividad me ayudó a comprender mejor cómo se estructuran estas metodologías y cómo pueden complementarse para ofrecer una protección más robusta.</p>
+            </div>
+              <a href="/documentos/181760-act05.pdf" download class="btn-descarga">
+                Exportar a PDF
+              </a>
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 ---
-const { title, desc, tech } = Astro.props;
+const { title, desc, tech, link} = Astro.props;
 ---
 
 <div class="single-item">
@@ -10,7 +10,5 @@ const { title, desc, tech } = Astro.props;
     </ul>
   </div>-->
   <!-- <div class="mini-label-white">Technologies &amp; tools</div>-->
- <a href="/Parcial1"><div class="chips-container"  >
-    {tech.map(techItem => <div class="single-chip">{techItem}</div>)}
-  </div></a>
+ <a href={link} class="single-chip">Ver</a>
 </div>
