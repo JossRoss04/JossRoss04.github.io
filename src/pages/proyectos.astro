@@ -1,14 +1,21 @@
 ---
 import Header from '../components/Header.astro';
-import Project from "../components/Project.astro";
+import Project from "../components/proyectosLista.astro";
 import Sidebar from "../components/Sidebar.astro";
 const projects = [
   {
-    title: "Aún nada",
+    title: "PR01",
     desc: [
-      "Esperando"
+      "De la teoría a la práctica: walkthrough en acción, pentesting"
     ],
-    tech: ["nada aún"]
+    link: ["https://youtu.be/JUI9xXxRnbE"]
+  },
+  {
+    title: "PR02",
+    desc: [
+      "Proceso"
+    ],
+    link: ["/PR02"]
   }
 ];
 ---
@@ -16,10 +23,10 @@ const projects = [
 <!DOCTYPE html>
 <html
 >
-  <Header title="PF02 - 181760" />
+  <Header title="Proyectos - 181760" />
   <body>
     <div class="content">
-        <Sidebar selectedItem="PF02" />
+        <Sidebar selectedItem="Proyectos" />
       <nav class="main">
         <div class="container">
           <div class="back-nav-container">
@@ -29,14 +36,14 @@ const projects = [
             >
           </div>
           <div class="content-container">
-            <h1>PF02</h1>
+            <h1>Proyectos</h1>
             <section class="items-container">
                 <div class="resouce-items">
                     {projects.map(project => (
                       <Project 
                         title={project.title} 
                         desc={project.desc}
-                        tech={project.tech}
+                        link={project.link}
                       />
                     ))}
                   </div>

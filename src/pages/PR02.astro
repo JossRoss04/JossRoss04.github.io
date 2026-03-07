@@ -1,0 +1,120 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Proyecto 2 - Parcial 2 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="Proyectos" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">PR02: El eslabón más débil: diseño ético de
+              una campaña de ingeniería social. </h1>
+            <a href="/assets/documentos/act01-Equipo01.pdf" download class="btn-descarga">
+              Exportar a PDF
+            </a>
+            <h3>NotPetya–Maersk (2017)</h3>
+
+            <div class="content-container">
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Introducción Contextual</h4>
+                  <div>
+                    <p>En el contexto de la digitalización global, una de las principales amenazas a las que se enfrentan las empresas y los gobiernos son los ciberataques<br>
+                    Uno de los casos que evidenció de forma contundente el peligro de los ciberataques a gran escala fue el ocurrido en Ucrania en junio de 2017, conocido como el ataque NotPetya
+                    El presente reporte analiza el ciberataque NotPetya y su impacto en Maersk desde una perspectiva técnica, económica y estratégica
+                    </p>
+                  </div>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Principales plataformas de simulación de phising</h4>
+
+                  <table class="cronologia">
+                    <thead>
+                      <tr>
+                      <th>Plataforma</th>
+                      <th>Capacidades técnicas</th>
+                      <th>Métricas de medición</th>
+                      <th>Enfoque de entrenamiento</th>
+                      <th>Controles éticos</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Hoxhunt</td>
+                      </tr>
+                      <tr>
+                        <td>Proofpoint</td>
+                      </tr>
+                      <tr>
+                        <td>KnowBe4</td>
+                      </tr>
+                      <tr>
+                        <td>Cofense</td>
+                      </tr>
+                      <tr>
+                        <td>Phished</td>
+                      </tr>
+                      <tr>
+                        <td>Ninjo</td>
+                      </tr>
+                      <tr>
+                        <td>Mimecast</td>
+                      </tr>
+                      <tr>
+                        <td>Infosec IQ</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Conclusiones</h4>
+                  <p>Como se pudo analizar, un ataque puede ocurrir incluso en un entorno que se considera seguro. Ninguna empresa, por más reconocida o grande que sea, está exenta de sufrir un incidente si baja la guardia en temas de seguridad. En este caso, uno de los errores más graves fue confiar completamente en un software que se creía legítimo, sin considerar que también podía ser comprometido.</p>
+                  <p>Este caso demuestra que un solo punto de confianza mal gestionado puede convertirse en una vulnerabilidad crítica para toda la organización.</p>
+              </div>
+              <a href="/assets/documentos/act01-Equipo01.pdf" download class="btn-descarga">
+                Exportar a PDF
+              </a>              
+        </div>
+      </nav>
+    </div>
+
+
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

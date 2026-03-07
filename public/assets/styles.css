@@ -30,7 +30,36 @@ a:active,
 a:hover {
   outline: 0;
 }
+.indice {
+  background-color: #333333;
+  border-left: 4px solid #000000;
+  padding: 15px;
+  width: fit-content;
+  border-radius: 6px;
+}
 
+.indice h3 {
+  margin-top: 0;
+}
+
+.indice ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.indice li {
+  margin-bottom: 8px;
+}
+
+.indice a {
+  text-decoration: none;
+  color: #efefef;
+  font-weight: 500;
+}
+
+.indice a:hover {
+  text-decoration: underline;
+}
 h1 {
   margin: 0.67em 0;
   font-size: 2em;
@@ -60,6 +89,7 @@ img {
 
 html {
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
