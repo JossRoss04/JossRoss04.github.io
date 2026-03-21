@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Phishing Quiz</title>
+        <link rel="stylesheet" href="../assets/styles.css" />
+    </head>
+    <body style="background-color: rgb(248, 249, 250);">
+        <h1 style="color: black; text-align: center;">Phishing Quiz </br>By Emox </h1>
+
+        <div id="inicioQuiz">
+            <h2>Iniciar Quiz</h2>
+
+            <input type="text" id="nombreUser" placeholder="Tu nombre" /><br /><br />
+            <input type="email" id="correoUser" placeholder="Tu correo" /><br /><br />
+            
+        <div class="disclaimer">
+            <p>
+                🔒 Tu privacidad importa: usaremos tu nombre solo para el ranking.
+                Tu correo no se guarda y solo se utiliza dentro del quiz.
+            </p>
+        </div>
+
+            <button onclick="iniciarQuiz()">Iniciar Quiz</button>
+        </div>
+
+        <div id="quizContainer" style="display:none;">
+            <div class="email-card">
+                <div class="email-top">
+                    <div class="avatar">P</div>
+
+                <div class="email-info">
+                    <div class="email-from" id="from"></div>
+                    <div class="email-subject" id="subject"></div>
+                </div>
+
+                <div class="email-date">Today</div>
+            </div>
+
+            <div class="email-body">
+                <p id="mensaje"></p>
+
+                <div class="tooltip">
+                    <button id="btnLink" class="btnLink">Ver enlace</button>
+                    <span id="tooltipLink" class="tooltiptext"></span>
+                </div>
+            </div>
+        </div>
+
+            <div id="botonesRespuesta" class="quiz-buttons">
+                <button class="btnPhishing" onclick="responder('phishing')">
+                    Phishing
+                </button>
+                <button class="btnLegitimo" onclick="responder('legitimo')">
+                    Legitimate
+                </button>
+            </div>
+
+            <p id="resultado"></p>
+
+            <div id="botonExplicacion" style="display:none;">
+                <button class="btnSiguiente" onclick="mostrarExplicacion()">
+                    Ver explicación
+                </button>
+            </div>
+
+            <p id="explicacion"></p>
+
+            <div id="botonSiguiente" style="display:none;">
+                <button class="btnSiguiente" onclick="siguiente()">Siguiente</button>
+            </div>
+
+            <button
+                class="btnSiguiente"
+                id="botonInicio"
+                onclick="irInicio()"
+                style="display:none;"
+            >
+                    Volver al inicio
+                </button>
+                <p id="puntaje" style="display: none;">Puntaje: 0</p>
+            </div>
+
+            
+            <div id="finalContainer" style="display:none;">
+                <div id="ranking"></div>
+                <button
+                    class="btnSiguiente"
+                    id="botonInicio"
+                    onclick="irInicio()"
+                >
+                    Volver al inicio
+                </button>
+            </div>
+
+            <script type="module" src="/scripts/firebase.js"></script>
+            <script src="/scripts/quiz.js" defer></script>
+    </body>
+</html>
