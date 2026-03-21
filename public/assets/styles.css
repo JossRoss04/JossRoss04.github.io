@@ -417,7 +417,7 @@ text-decoration:none;
 #finalContainer{
   display: flex;
   flex-direction: column;
-  align-items: center; /* 🔥 centra todo */
+  align-items: center; /* centra todo */
   margin-top: 40px;
 }
 
