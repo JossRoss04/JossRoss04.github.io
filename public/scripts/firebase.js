@@ -21,7 +21,6 @@ window.guardarPuntaje = async function(usuario, puntaje, errores){
     try{
         await addDoc(collection(db, "ranking"), {
             nombre: usuario.nombre,
-            correo: usuario.correo,
             puntaje: puntaje,
             errores: errores, // NUEVO
             fecha: new Date()
