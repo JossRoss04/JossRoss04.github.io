@@ -230,6 +230,8 @@ else{
 
     // mostrar pantalla final
     document.getElementById("finalContainer").style.display = "block";
+
+    document.getElementById("contenedor-btn").style.display = "none";
 }
 
 }
@@ -264,6 +266,11 @@ window.iniciarQuiz = function(){
 
     console.log("CLICK DETECTADO 🔥");
 
+    document.getElementById("contenedor-btn").style.display = "none";
+
+    document.getElementById("botonInicio").style.display = "none";
+    document.getElementById("btnRanking").style.display = "none";
+
     usuario.nombre = document.getElementById("nombreUser").value;
     usuario.correo = document.getElementById("correoUser").value;
 
@@ -282,6 +289,38 @@ window.iniciarQuiz = function(){
     document.getElementById("puntaje").style.display = "block";
 
     mostrarPregunta();
+}
+
+document.getElementById("btnRanking").addEventListener("click", async function(){
+
+    // ocultar login
+    document.getElementById("inicioQuiz").style.display = "none";
+    document.getElementById("btnRanking").style.display = "none";
+
+    // mostrar contenedor final
+    document.getElementById("finalContainer").style.display = "block";
+
+    // cargar ranking
+    let rankingHTML = await cargarRanking();
+
+    document.getElementById("ranking").innerHTML = `
+        <h2>🏆 Ranking Global</h2>
+        ${rankingHTML}
+    `;
+});
+
+window.volverLogin = function(){
+
+    // ocultar ranking
+    document.getElementById("finalContainer").style.display = "none";
+
+    // mostrar login
+    document.getElementById("inicioQuiz").style.display = "block";
+
+    document.getElementById("contenedor-btn").style.display = "flex";
+
+    document.getElementById("botonInicio").style.display = "block";
+    document.getElementById("btnRanking").style.display = "block";
 }
 
 function generarAnalisis(){
