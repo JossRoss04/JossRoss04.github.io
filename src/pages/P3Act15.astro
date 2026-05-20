@@ -1,0 +1,134 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Actividad 15 - Parcial 3 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="PF01" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">Actividad 15: Social Engineer Toolkit (SET)</h1>
+            <a href="/assets/documentos/act15-Equipo1.pdf" download class="btn-descarga">
+              Exportar a PDF
+            </a>
+
+            <div class="content-container">
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Executive Summary</h4>
+                  <div>
+                    <p>Este informe presenta los resultados de una prueba de penetración realizada sobre la máquina virtual Napping, con el objetivo de evaluar su nivel de exposición ante posibles ataques y determinar los riesgos que podrían afectar la seguridad de la información.</p>
+                  </div>
+              </div>
+
+              <div class="titulo-separador"></div>    
+
+              <div class="content-container">
+                <h4>Objetivos</h4>
+                  <ul class="lista">
+                    <li>Objetivo General</li>
+                    <p>Evaluar la resiliencia de la infraestructura de correo electrónico institucional y la concienciación de los usuarios mediante una simulación de ataque de ingeniería social (Spear Phishing) en un entorno controlado.</p>
+                    <li>Objetivos Específicos</li>
+                    <ul class="lista">
+                      <li><p><strong>Despliegue de MTA: </strong>Configurar un Agente de Transferencia de Correo (MTA) basado en Postfix para la manipulación y retransmisión de paquetes SMTP.</p></li>
+                      <li><p><strong>Auditoría de Vectores de Ataque: </strong>Ejecutar una campaña de Mass Mailer mediante Social-Engineer Toolkit (SET) para probar la efectividad de los señuelos basados en HTML.</p></li>
+                    </ul>
+                  </ul>
+              </div>
+              
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Análisis de riesgos</h4>
+                  <p>El éxito de la infiltración permite identificar los siguientes riesgos críticos según la tríada de la seguridad (CIA):</p>                
+                  <ul class="lista">
+                    <li>Vulnerabilidades Técnicas Explotadas:</li>
+                    <ul class="lista">
+                      <li><strong>Falta de Registros Anti-Spoofing: </strong>La ausencia de registros SPF (Sender Policy Framework), DKIM y DMARC en el dominio emisor permitió que el servidor Postfix suplantara identidades sin ser bloqueado por el protocolo de verificación de origen.</li>
+                      <li><strong>Debilidad en el Gateway de Correo: </strong>Los filtros de contenido no detectaron patrones de "Credential Harvesting" en el cuerpo del HTML enviado.</li>
+                    </ul>
+                    <li>Impacto en el Negocio:</li>
+                      <ul>
+                        <li><strong>Confidencialidad (Alta):</strong> Compromiso total de cuentas institucionales, permitiendo el acceso a información privada y bases de datos protegidas.</li>
+                        <li><strong>Integridad (Media):</strong> Posibilidad de realizar ataques de "Man-in-the-Middle" o cambiar registros financieros tras el acceso inicial.</li>
+                        <li><strong>Probabilidad de Ocurrencia (Alta):</strong> La disponibilidad de herramientas automatizadas (SET) y servicios de relay gratuitos reduce la barrera</li>
+                      </ul>                    
+                  </ul>
+              </div>
+
+              <div class="titulo-separador"></div>
+              
+              <div class="content-container">
+                <h4>Recomendaciones de mitigación</h4>             
+
+                  <table class="cronologia" id="tabla1">
+                    <thead>
+                      <tr>
+                        <th>Recomendación</th>
+                        <th>Medida a implementar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>Controles Técnicos</td>
+                      <td><p>Implementación de SPF/DKIM: Configurar registros DNS para validar que los correos solo provengan de servidores autorizados.</p>
+                      <p>Filtros Anti-Spam: Activar motores de inspección de reputación en el gateway de correo.</p>
+                      <p>MFA (Autenticación de Múltiples Factores): Desplegar 2FA para que la captura de contraseñas por sí sola no sea suficiente para el acceso.</p></td>
+                    </tr>
+                    <tr>
+                      <td>Controles Administrativos</td>
+                      <td><p>Programa de Concientización: Realizar simulacros periódicos para que los usuarios identifiquen correos sospechosos y el uso de enlaces externos.</p></td>
+                    </tr>
+                    </tbody>
+                  </table>
+              </div>
+
+              <div class="titulo-separador"></div>            
+
+              <div class="content-container">
+                <h4>Conclusiones</h4>
+                  <p>  
+                    Burp Suite es una herramienta fundamental para realizar pruebas de seguridad en aplicaciones web, ya que permite interceptar y modificar peticiones con el fin de detectar vulnerabilidades como SQL Injection. Por su parte, gracias a los laboratorios de la PortSwigger puede aprender en un entorno práctico y progresivo sobre estas inyecciones, mostrando de manera clara cómo funcionan los ataques y cuáles son las medidas necesarias para prevenirlos.
+                  </p>
+              </div>
+              <a href="/assets/documentos/act11-Equipo1.pdf" download class="btn-descarga">
+                Exportar a PDF
+              </a>              
+            </div>
+      </nav>
+    </div>
+
+
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

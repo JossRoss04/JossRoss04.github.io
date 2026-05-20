@@ -1,0 +1,71 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Certificación 6 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="Certi" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">Certificado 6</h1>
+            <h3>Carrera profesional de Analista Junior en Ciberseguridad</h3>
+
+            <div class="content-container">
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Reseña breve del certificado</h4>
+                  <div>
+                    <p>hola</p>
+                  </div>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Badge original</h4>
+                <img src="/assets/documentos/certi6Badge.png" class="mi-imagen" alt="Badge">
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <a href="/assets/documentos/certi6Certificado.pdf" download class="btn-descarga">
+                PDF del certificado
+              </a>              
+        </div>
+      </nav>
+    </div>
+
+
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/Parcial1Actividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Introducción a la ciberseguridad",
+    desc: [
+      "Certi1"
+    ],
+    link: "/certi1"
+  },
+  {
+    title: "Conceptos básicos de redes",
+    desc: [
+      "Certi2"
+    ],
+    link: "/certi2"
+  },
+  {
+    title: "Dispositivos de red y configuración inicial",
+    desc: [
+      "Certi3"
+    ],
+    link: "/certi3"
+  },
+  {
+    title: "Seguridad en terminales",
+    desc: [
+      "Certi4"
+    ],
+    link: "/certi4"
+  },
+  {
+    title: "Administración de amenazas cibernéticas",
+    desc: [
+      "Certi5"
+    ],
+    link: "/certi5"
+  },
+  {
+    title: "Carrera profesional de Analista Junior en Ciberseguridad",
+    desc: [
+      "certi6"
+    ],
+    link: "/certi6"
+  },
+  {
+    title: "Hacker ético",
+    desc: [
+      "certi7"
+    ],
+    link: "/certi7"
+  },
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Certificaciones - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="certi" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1>Certificaciones</h1>
+            <section class="items-container">
+                <div class="resouce-items">
+                    {projects.map(project => (
+                      <Project 
+                        title={project.title} 
+                        desc={project.desc}
+                        link={project.link}
+                      />
+                    ))}
+                  </div>
+            </section>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

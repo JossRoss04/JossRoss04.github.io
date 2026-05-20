@@ -1,0 +1,219 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Actividad 11 - Parcial 2 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="PF01" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">Actividad 11: Pentesting de Napping101</h1>
+            <a href="/assets/documentos/act11-Equipo1.pdf" download class="btn-descarga">
+              Exportar a PDF
+            </a>
+
+            <div class="content-container">
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Executive Summary</h4>
+                  <div>
+                    <p>Este informe presenta los resultados de una prueba de penetración realizada sobre la máquina virtual Napping, con el objetivo de evaluar su nivel de exposición ante posibles ataques y determinar los riesgos que podrían afectar la seguridad de la información.</p>
+                    <p>Durante la evaluación se identificaron diversas debilidades críticas, comenzando con vulnerabilidades de diseño web (Reverse Tabnabbing) que permitieron el robo de credenciales de usuarios legítimos simulados. Posteriormente, fallos en la asignación de permisos de archivos y malas configuraciones en la ejecución de tareas automatizadas (cron) y privilegios sudo, permitieron escalar posiciones dentro del sistema.</p>
+                    <p>Estas vulnerabilidades facilitaron que el equipo de pruebas obtuviera acceso inicial, pivotara horizontalmente hacia otro usuario y, finalmente, lograra la escalada de privilegios hasta alcanzar el control total del servidor (root). Las recomendaciones emitidas en este documento buscan mitigar estas brechas de seguridad mediante configuraciones adecuadas en el código web y una estricta aplicación del principio de mínimo privilegio.</p>
+                  </div>
+              </div>
+
+              <div class="titulo-separador"></div>    
+
+              <div class="content-container">
+                <h4>Alcance (scope)</h4>
+                  <p>Las bases de datos relacionales (RDBMS) organizan los datos en tablas con filas y columnas, relacionadas entre sí mediante claves. Las aplicaciones web suelen interactuar con estas bases de datos para almacenar y recuperar información dinámica (usuarios, productos, configuraciones). El motor de la base de datos interpreta las instrucciones enviadas por la aplicación para ejecutar operaciones CRUD (Create, Read, Update, Delete).</p>
+              </div>
+              
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Metodología aplicada</h4>
+                  <p>Para la realización de esta prueba se utilizó la metodología Penetration Testing Execution Standard (PTES):</p>                
+
+                  <table class="cronologia" id="tabla1">
+                    <thead>
+                      <tr>
+                        <th>Fases</th>
+                        <th>Descripción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>Reconocimiento</td>
+                      <td><p>Recolección de información del sistema objetivo para identificar direcciones IP activas y posibles puntos de entrada en la red local.</p></td>
+                    </tr>
+                    <tr>
+                      <td>Enumeración</td>
+                      <td><p>Escaneo de puertos y servicios para identificar aplicaciones expuestas (ej. HTTP, SSH) y sus versiones.</p></td>
+                    </tr>
+                    <tr>
+                      <td>Análisis de vulnerabilidades</td>
+                      <td><p>Evaluación de debilidades en los servicios web, detectando fallos lógicos en el diseño frontend y backend.</p></td>
+                    </tr>  
+                    <tr>
+                      <td>Explotación</td>
+                      <td><p>Uso de técnicas de Phishing (Tabnabbing) para obtener credenciales y lograr el acceso inicial al servidor.</p></td>
+                    </tr>
+                    <tr>
+                      <td>Post-Explotación</td>
+                      <td><p>Análisis interno para identificar configuraciones inseguras (permisos en scripts de Python, privilegios sudo) para escalar a superusuario (root).</p></td>
+                    </tr>  
+                    <tr>
+                      <td>Análisis de impacto</td>
+                      <td><p>Evaluación del nivel de compromiso utilizando el modelo CIA Triad.</p></td>
+                    </tr>
+                    </tbody>
+                  </table>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Análisis de impacto (modelo CIA)</h4>
+                  <ul>
+                    <li>
+                      <p><strong>Confidencialidad:</strong> La vulnerabilidad de Reverse Tabnabbing permitió el robo de credenciales, comprometiendo la confidencialidad de la información almacenada en la base de datos (datos de usuarios, configuraciones). El acceso no autorizado a esta información podría resultar en filtraciones o uso indebido.</p>
+                    </li>
+                    <li>
+                      <p><strong>Integridad (Integrity):</strong> La configuración insegura de grupos y permisos permitió a nuestro equipo inyectar código no autorizado dentro de un script vital del sistema (query.py), alterando la lógica prevista por el desarrollador original.</p>
+                    </li>
+                    <li>
+                      <p><strong>Disponibilidad (Availability):</strong> Al obtener privilegios máximos (root), un atacante real podría eliminar el sitio web, cerrar los puertos de red, modificar configuraciones del sistema operativo o instalar ransomware, ocasionando una caída total y permanente del servicio para los usuarios legítimos.</p>
+                    </li>
+                  </ul>
+              </div>
+
+              <div class="titulo-separador"></div>
+              
+              <div class="content-container">
+                <h4>Recomendaciones Técnicas</h4>             
+
+                  <table class="cronologia" id="tabla1">
+                    <thead>
+                      <tr>
+                        <th>Recomendación</th>
+                        <th>Medida a implementar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>Mitigar Reverse Tabnabbing</td>
+                      <td><p>Agregar el atributo rel="noopener noreferrer" a todas las etiquetas HTML de anclaje (<a>) que usen target="_blank". Esto rompe el vínculo entre la pestaña abierta y la pestaña original, neutralizando el ataque de inyección de JS.</p></td>
+                    </tr>
+                    <tr>
+                      <td>Asegurar Tareas Programadas (Cron)</td>
+                      <td><p>Los scripts o binarios que se ejecuten automatizados mediante cron jobs deben tener permisos estrictos (chmod 755 o inferior) y pertenecer exclusivamente al usuario que los ejecuta, evitando que grupos externos puedan reescribir su contenido.</p></td>
+                    </tr>
+                    <tr>
+                      <td>Restringir Privilegios Sudo</td>
+                      <td><p>Evitar asignar permisos NOPASSWD a binarios que puedan invocar shells (conocidos como GTFOBins, ej. vim, awk, find, less). Si es necesario el uso de Vim vía sudo, implementar la restricción mediante comandos específicos o usando herramientas alternativas como sudoedit.</p></td>
+                    </tr>  
+                    <tr>
+                      <td>Monitoreo de Creación de Usuarios</td>
+                      <td><p>Implementar alertas SIEM y revisión de logs en /var/log/auth.log para la creación anómala de cuentas y elevación a grupos de alta criticidad (grupo sudo).</p></td>
+                    </tr>
+                    </tbody>
+                  </table>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Tabla de hallazgos</h4>             
+
+                  <table class="cronologia" id="tabla1">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Vulnerabilidad</th>
+                        <th>Severidad</th>
+                        <th>Evidencia</th>
+                        <th>Impacto</th>
+                        <th>Recomendación</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Reverse Tabnabbing</td>
+                      <td>Alta</td>
+                      <td><p>Modificación exitosa del objeto window.opener desde la validación de enlaces en welcome.php.</p></td>
+                      <td><p>Robo de credenciales administrativas mediante redirecciones a sitios clonados.</p></td>
+                      <td><p>Implementar el uso estricto del atributo rel="noopener noreferrer".</p></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Permisos de archivos inseguros</td>
+                      <td>Media</td>
+                      <td><p>Grupo administrators poseía privilegios de escritura sobre /home/adrian/ query.py.</p></td>
+                      <td><p>Permitió movimiento lateral e inyección de una Reverse Shell.</p></td>
+                      <td><p>Aplicar el Principio de Menor Privilegio (PoLP) en los archivos que corren bajo Cron.</p></td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Escalada de privilegios por Sudo (Vim)</td>
+                      <td>Crítica</td>
+                      <td><p>El usuario adrian tenía autorización de ejecutar /usr/bin/vim como root sin contraseña.</p></td>
+                      <td><p>Compromiso absoluto del sistema (Root) y creación de cuentas persistentes.</p></td>
+                      <td><p>Restringir el uso de editores de texto interactivos en el archivo /etc/sudoers.</p></td>
+                    </tr>  
+                    </tbody>
+                  </table>
+              </div>              
+
+              <div class="titulo-separador"></div>
+
+
+              <div class="content-container">
+                <h4>Conclusiones</h4>
+                  <p>  
+                    Burp Suite es una herramienta fundamental para realizar pruebas de seguridad en aplicaciones web, ya que permite interceptar y modificar peticiones con el fin de detectar vulnerabilidades como SQL Injection. Por su parte, gracias a los laboratorios de la PortSwigger puede aprender en un entorno práctico y progresivo sobre estas inyecciones, mostrando de manera clara cómo funcionan los ataques y cuáles son las medidas necesarias para prevenirlos.
+                  </p>
+              </div>
+              <a href="/assets/documentos/act11-Equipo1.pdf" download class="btn-descarga">
+                Exportar a PDF
+              </a>              
+            </div>
+      </nav>
+    </div>
+
+
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

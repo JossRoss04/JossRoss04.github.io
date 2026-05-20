@@ -1,0 +1,76 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Certificación 4 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="Certi" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">Certificado 4</h1>
+            <h3>Seguridad en terminales</h3>
+
+            <div class="content-container">
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Reseña breve del certificado</h4>
+                  <div>
+                    <p>
+                      El curso de Seguridad de Terminales me permitió comprender la importancia de proteger los dispositivos y sistemas que forman parte de una red, así como identificar las principales amenazas que pueden afectar la seguridad de la información. Durante el proceso de formación aprendí sobre vulnerabilidades en redes y sistemas operativos, malware, seguridad en Windows y Linux, además de buenas prácticas para proteger archivos y dispositivos conectados a la red.</br>
+                      Uno de los aprendizajes más importantes fue entender cómo los atacantes aprovechan debilidades en protocolos y configuraciones inseguras para comprometer equipos y servicios. También aprendí a utilizar comandos y herramientas básicas para verificar vulnerabilidades, identificar problemas de seguridad y fortalecer la protección de terminales. Además, el curso me ayudó a comprender la importancia de los principios de confidencialidad, integridad y disponibilidad dentro de la ciberseguridad.</br>
+                      Uno de los retos que enfrenté fue familiarizarme con algunos comandos de Linux y entender cómo funcionan ciertos ataques relacionados con redes TCP/IP, ya que requieren conocer tanto la parte teórica como la práctica. Sin embargo, mediante ejercicios y laboratorios pude mejorar mi comprensión y aprender a aplicar medidas básicas de protección en diferentes escenarios.</br>
+                      En cuanto a la aplicación práctica, considero que este curso es muy útil porque actualmente la mayoría de las organizaciones dependen de dispositivos conectados constantemente a Internet. Personalmente, me pareció interesante porque me permitió ver cómo pequeños errores de configuración pueden convertirse en vulnerabilidades importantes y cómo es posible prevenir muchos ataques mediante buenas prácticas de seguridad y monitoreo constante de los sistemas.
+                    </p>
+                  </div>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Badge original</h4>
+                <img src="/assets/documentos/certi4Badge.png" class="mi-imagen" alt="ACL">
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <a href="/assets/documentos/certi4Certificado.pdf" download class="btn-descarga">
+                PDF del certificado
+              </a>              
+        </div>
+      </nav>
+    </div>
+
+
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

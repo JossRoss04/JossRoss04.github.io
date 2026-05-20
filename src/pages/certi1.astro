@@ -1,0 +1,75 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Certificación 1 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="Certi" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">Certificado 1</h1>
+            <h3>Introducción a la ciberseguridad</h3>
+
+            <div class="content-container">
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Reseña breve del certificado</h4>
+                  <div>
+                    <p>
+                      El curso de Introducción a la Ciberseguridad me permitió comprender de una manera más clara la importancia que tiene la seguridad informática en la actualidad y cómo afecta tanto a las personas como a las organizaciones. Durante el proceso de formación aprendí conceptos fundamentales sobre amenazas, ataques y vulnerabilidades comunes, además de las diferentes medidas de protección que pueden implementarse para reducir riesgos en entornos digitales.</br>
+                      Uno de los aprendizajes más importantes fue entender cómo funcionan ataques como el phishing, malware o robo de información, así como la relevancia de mantener buenas prácticas de seguridad. También aprendí sobre el impacto que puede tener un incidente de ciberseguridad en una empresa, desde pérdidas económicas hasta daños reputacionales.</br>
+                      Uno de los retos que tuve durante el curso fue familiarizarme con algunos términos técnicos y comprender cómo se relacionan los diferentes tipos de ataques con las vulnerabilidades de los sistemas. Sin embargo, conforme avanzaba en los temas, pude entender mejor los conceptos gracias a los ejemplos y casos prácticos presentados.</br>
+                      Considero que este curso tiene una aplicación muy útil, especialmente para fortalecer la conciencia de seguridad tanto a nivel personal como profesional. Además, me ayudó a interesarme más por el área de la ciberseguridad y las oportunidades laborales relacionadas con ella. En lo personal, me pareció un curso bastante interesante porque muestra cómo pequeños errores pueden convertirse en riesgos importantes dentro de cualquier sistema digital.</p>
+                  </div>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Badge original</h4>
+                <img src="/assets/documentos/certi1Badge.png" class="mi-imagen" alt="ACL">
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <a href="/assets/documentos/certi1Certificado.pdf" download class="btn-descarga">
+                PDF del certificado
+              </a>              
+        </div>
+      </nav>
+    </div>
+
+
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>

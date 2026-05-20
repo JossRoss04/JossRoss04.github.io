@@ -1,0 +1,76 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Certificación 3 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="Certi" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-size: 40px;">Certificado 3</h1>
+            <h3>Dispositivos de red y configuración inicial</h3>
+
+            <div class="content-container">
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Reseña breve del certificado</h4>
+                  <div>
+                    <p>
+                      El curso de Dispositivos de Red y Configuración Inicial me permitió profundizar más en el funcionamiento de las redes y en la configuración de dispositivos Cisco dentro de un entorno práctico. A lo largo del proceso de formación aprendí conceptos intermedios relacionados con diseño de redes, direccionamiento IP, subredeo, protocolos de comunicación y configuración de routers y switches utilizando el sistema operativo IOS de Cisco. Además, el curso ayudó a reforzar conocimientos previos sobre redes y conectividad, pero ahora con un enfoque más orientado a administración y soporte de infraestructura. </br>
+                      Uno de los aprendizajes más importantes fue comprender cómo se estructura una red jerárquica y cómo los routers y switches trabajan juntos para permitir la comunicación entre diferentes dispositivos y segmentos de red. También aprendí a calcular subredes IPv4, configurar servicios como DHCP y DNS, y probar la conectividad utilizando distintas herramientas de diagnóstico. Otro tema interesante fue conocer conceptos de virtualización y servicios en la nube, los cuales actualmente tienen gran importancia dentro del área de tecnologías de la información.</br>
+                      Uno de los retos que enfrenté durante el curso fue adaptarme al uso de comandos dentro del IOS de Cisco y entender algunos procesos relacionados con el subredéo, ya que requieren mucha práctica y precisión. Sin embargo, mediante laboratorios y simulaciones logré familiarizarme mejor con la configuración de dispositivos.
+                      En cuanto a la aplicación práctica, considero que este curso brinda bases importantes para el área de redes y ciberseguridad. Personalmente, me gustó porque combina teoría con práctica y permite entender cómo se construye y administra una red real.
+                    </p>
+                  </div>
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <div class="content-container">
+                <h4>Badge original</h4>
+                <img src="/assets/documentos/certi3Badge.png" class="mi-imagen" alt="ACL">
+              </div>
+
+              <div class="titulo-separador"></div>
+
+              <a href="/assets/documentos/certi3Certificado.pdf" download class="btn-descarga">
+                PDF del certificado
+              </a>              
+        </div>
+      </nav>
+    </div>
+
+
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>
