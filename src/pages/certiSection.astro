@@ -1,0 +1,296 @@
+---
+import Header from "../components/Header.astro";
+import Project from "../components/ComponentActividades.astro";
+import Sidebar from "../components/Sidebar.astro";
+const projects = [
+  {
+    title: "Parcial 1",
+    desc: [
+      "Actividades introductorias a la seguridad informática"
+    ],
+    tech: ["Entrar a Parcial 1 "]
+  }
+];
+---
+
+<script is:inline>
+  window.scrollToSection = function(id) {
+
+    document.querySelectorAll(".cert-section")
+      .forEach(section => {
+        section.classList.remove("active");
+      });
+
+    document.getElementById(id)
+      .classList.add("active");
+  }
+</script>
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Certificación 1 - 181760" />
+
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="certiSection" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+
+            <div class="content-container">
+
+              <div class="content-container">
+                <div class="certificados-container">
+
+                  <!-- Botones -->
+                  <div class="menu-certificados">
+                    <button onclick="scrollToSection('cert1')">Certificado 1</button>
+                    <button onclick="scrollToSection('cert2')">Certificado 2</button>
+                    <button onclick="scrollToSection('cert3')">Certificado 3</button>
+                    <button onclick="scrollToSection('cert4')">Certificado 4</button>
+                    <button onclick="scrollToSection('cert5')">Certificado 5</button>
+                    <button onclick="scrollToSection('cert6')">Certificado 6</button>
+                    <button onclick="scrollToSection('cert7')">Certificado 7</button>
+                  </div>
+
+                  <!-- Secciones -->
+                  <section id="cert1" class="cert-section active">
+                    <div class="content-container">
+                      <h1 style="font-size: 40px;">Certificado 1</h1>
+                      <h3>Introducción a la ciberseguridad</h3>
+
+                      <div class="content-container">
+                        <a href="/assets/documentos/certi1Certificado.pdf" download class="btn-descarga">
+                          PDF del certificado
+                        </a>     
+                        <div class="content-container">
+                          <h4>Reseña breve del certificado</h4>
+                            <div>
+                              <p>El curso de Introducción a la Ciberseguridad me permitió comprender de una manera más clara la importancia que tiene la seguridad informática en la actualidad y cómo afecta tanto a las personas como a las organizaciones. Durante el proceso de formación aprendí conceptos fundamentales sobre amenazas, ataques y vulnerabilidades comunes, además de las diferentes medidas de protección que pueden implementarse para reducir riesgos en entornos digitales.</p>
+                              <p>Uno de los aprendizajes más importantes fue entender cómo funcionan ataques como el phishing, malware o robo de información, así como la relevancia de mantener buenas prácticas de seguridad. También aprendí sobre el impacto que puede tener un incidente de ciberseguridad en una empresa, desde pérdidas económicas hasta daños reputacionales.</p>
+                              <p>Uno de los retos que tuve durante el curso fue familiarizarme con algunos términos técnicos y comprender cómo se relacionan los diferentes tipos de ataques con las vulnerabilidades de los sistemas. Sin embargo, conforme avanzaba en los temas, pude entender mejor los conceptos gracias a los ejemplos y casos prácticos presentados.</p>
+                              <p>Considero que este curso tiene una aplicación muy útil, especialmente para fortalecer la conciencia de seguridad tanto a nivel personal como profesional. Además, me ayudó a interesarme más por el área de la ciberseguridad y las oportunidades laborales relacionadas con ella. En lo personal, me pareció un curso bastante interesante porque muestra cómo pequeños errores pueden convertirse en riesgos importantes dentro de cualquier sistema digital.</p>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="content-container">
+                          <h4>Badge original</h4>
+                          <img src="/assets/documentos/certi1Badge.png" class="mi-imagen" alt="ACL">
+                        </div>
+                  </div>
+                  </section>
+
+                  <section id="cert2" class="cert-section">
+                    <div class="content-container">
+                      <h1 style="font-size: 40px;">Certificado 2</h1>
+                      <h3>Conceptos básicos de redes</h3>
+
+                      <div class="content-container">
+
+                        <a href="/assets/documentos/certi2Certificado.pdf" download class="btn-descarga">
+                          PDF del certificado
+                        </a>  
+
+                        <div class="content-container">
+                          <h4>Reseña breve del certificado</h4>
+                            <div>
+                              <p>El curso de Conceptos Básicos de Redes me ayudó a comprender de mejor manera cómo funcionan las redes informáticas y la importancia que tienen en la comunicación actual. Durante el proceso de formación aprendí desde los conceptos fundamentales de conectividad hasta temas relacionados con direccionamiento IP, protocolos, routers, medios de transmisión y configuración de redes inalámbricas. Considero que fue un curso bastante completo porque no solo se enfocó en la teoría, sino también en la parte práctica y en la resolución de problemas comunes de conectividad.</p>
+                              <p>Uno de los aprendizajes más importantes fue entender cómo se comunican los dispositivos dentro de una red y cómo trabajan protocolos como ARP, DHCP e IPv4/IPv6 para permitir la transmisión de información. También aprendí a configurar routers inalámbricos, servidores DHCP y redes LAN pequeñas, además de utilizar herramientas de diagnóstico para identificar errores de conexión.</p>
+                              <p>Uno de los retos que enfrenté fue comprender el funcionamiento del direccionamiento IP y la segmentación de redes, ya que al inicio me resultó complicado relacionar los conceptos teóricos con la práctica. Sin embargo, mediante ejercicios y simulaciones pude entender mejor cómo se estructura una red y cómo interactúan sus componentes.</p>
+                              <p>En cuanto a la aplicación práctica, considero que este curso es muy útil para cualquier área relacionada con tecnologías de la información, ya que proporciona bases sólidas para administración de redes y soporte técnico. Personalmente, me gustó mucho porque me permitió entender procesos que normalmente ocurren “detrás” del Internet y de las conexiones que usamos diariamente.</p>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="content-container">
+                          <h4>Badge original</h4>
+                          <img src="/assets/documentos/certi2Badge.png" class="mi-imagen" alt="Badge">
+                        </div>
+            
+                  </div>
+                  </section>
+
+                  <section id="cert3" class="cert-section">
+                    <div class="content-container">
+                      <h1 style="font-size: 40px;">Certificado 3</h1>
+                      <h3>Dispositivos de red y configuración inicial</h3>
+
+                      <div class="content-container">
+
+                        <a href="/assets/documentos/certi3Certificado.pdf" download class="btn-descarga">
+                          PDF del certificado
+                        </a>   
+                        <div class="content-container">
+                          <h4>Reseña breve del certificado</h4>
+                            <div>
+                              <p>
+                              El curso de Dispositivos de Red y Configuración Inicial me permitió profundizar más en el funcionamiento de las redes y en la configuración de dispositivos Cisco dentro de un entorno práctico. A lo largo del proceso de formación aprendí conceptos intermedios relacionados con diseño de redes, direccionamiento IP, subredeo, protocolos de comunicación y configuración de routers y switches utilizando el sistema operativo IOS de Cisco. Además, el curso ayudó a reforzar conocimientos previos sobre redes y conectividad, pero ahora con un enfoque más orientado a administración y soporte de infraestructura.</p>
+                              <p>Uno de los aprendizajes más importantes fue comprender cómo se estructura una red jerárquica y cómo los routers y switches trabajan juntos para permitir la comunicación entre diferentes dispositivos y segmentos de red. También aprendí a calcular subredes IPv4, configurar servicios como DHCP y DNS, y probar la conectividad utilizando distintas herramientas de diagnóstico. Otro tema interesante fue conocer conceptos de virtualización y servicios en la nube, los cuales actualmente tienen gran importancia dentro del área de tecnologías de la información.</p>
+                              <p>Uno de los retos que enfrenté durante el curso fue adaptarme al uso de comandos dentro del IOS de Cisco y entender algunos procesos relacionados con el subredéo, ya que requieren mucha práctica y precisión. Sin embargo, mediante laboratorios y simulaciones logré familiarizarme mejor con la configuración de dispositivos.</p>
+                              <p>En cuanto a la aplicación práctica, considero que este curso brinda bases importantes para el área de redes y ciberseguridad. Personalmente, me gustó porque combina teoría con práctica y permite entender cómo se construye y administra una red real.</p>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="content-container">
+                          <h4>Badge original</h4>
+                          <img src="/assets/documentos/certi3Badge.png" class="mi-imagen" alt="ACL">
+                        </div>
+
+                  </div>
+                  </section>
+
+                  <section id="cert4" class="cert-section">
+                    <div class="content-container">
+                      <h1 style="font-size: 40px;">Certificado 4</h1>
+                      <h3>Seguridad en terminales</h3>
+
+                      <div class="content-container">
+
+                        <a href="/assets/documentos/certi4Certificado.pdf" download class="btn-descarga">
+                          PDF del certificado
+                        </a>              
+                        <div class="content-container">
+                          <h4>Reseña breve del certificado</h4>
+                            <div>
+                              <p>El curso de Seguridad de Terminales me permitió comprender la importancia de proteger los dispositivos y sistemas que forman parte de una red, así como identificar las principales amenazas que pueden afectar la seguridad de la información. Durante el proceso de formación aprendí sobre vulnerabilidades en redes y sistemas operativos, malware, seguridad en Windows y Linux, además de buenas prácticas para proteger archivos y dispositivos conectados a la red.</p>
+                              <p>Uno de los aprendizajes más importantes fue entender cómo los atacantes aprovechan debilidades en protocolos y configuraciones inseguras para comprometer equipos y servicios. También aprendí a utilizar comandos y herramientas básicas para verificar vulnerabilidades, identificar problemas de seguridad y fortalecer la protección de terminales. Además, el curso me ayudó a comprender la importancia de los principios de confidencialidad, integridad y disponibilidad dentro de la ciberseguridad.</p>
+                              <p>Uno de los retos que enfrenté fue familiarizarme con algunos comandos de Linux y entender cómo funcionan ciertos ataques relacionados con redes TCP/IP, ya que requieren conocer tanto la parte teórica como la práctica. Sin embargo, mediante ejercicios y laboratorios pude mejorar mi comprensión y aprender a aplicar medidas básicas de protección en diferentes escenarios.</p>
+                              <p>En cuanto a la aplicación práctica, considero que este curso es muy útil porque actualmente la mayoría de las organizaciones dependen de dispositivos conectados constantemente a Internet. Personalmente, me pareció interesante porque me permitió ver cómo pequeños errores de configuración pueden convertirse en vulnerabilidades importantes y cómo es posible prevenir muchos ataques mediante buenas prácticas de seguridad y monitoreo constante de los sistemas.</p>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="content-container">
+                          <h4>Badge original</h4>
+                          <img src="/assets/documentos/certi4Badge.png" class="mi-imagen" alt="ACL">
+                        </div>
+
+                  </div>
+                  </section>
+
+                  <section id="cert5" class="cert-section">
+                    <div class="content-container">
+                      <h1 style="font-size: 40px;">Certificado 5</h1>
+                      <h3>Administración de amenazas cibernéticas</h3>
+
+                      <div class="content-container">
+
+                        <a href="/assets/documentos/certi5Certificado.pdf" download class="btn-descarga">
+                          PDF del certificado
+                        </a>     
+
+                        <div class="content-container">
+                          <h4>Reseña breve del certificado</h4>
+                            <div>
+                              <p>El curso de Administración de Amenazas Cibernéticas me permitió comprender de una manera más profunda cómo las organizaciones gestionan los riesgos y responden ante incidentes de seguridad. Durante el proceso de formación aprendí conceptos relacionados con cumplimiento normativo, gestión de riesgos, análisis de vulnerabilidades, respuesta a incidentes e investigaciones forenses.</p>
+                              <p>Considero que fue un curso bastante importante porque mostró una visión más estratégica de la ciberseguridad y no solamente la parte técnica.</p>
+                              <p>Uno de los aprendizajes más relevantes fue entender cómo se aplican políticas de seguridad y controles basados en estándares éticos, legales y regulatorios. También aprendí a evaluar vulnerabilidades en redes y sistemas, además de conocer herramientas utilizadas para pruebas de seguridad y análisis de amenazas. Otro tema que me pareció muy interesante fue el proceso de respuesta a incidentes, ya que permite comprender cómo actuar correctamente después de un ataque para reducir impactos y recuperar operaciones.</p>
+                              <p>Uno de los retos que enfrenté durante el curso fue comprender algunos conceptos relacionados con marcos regulatorios y modelos de gestión de riesgos, debido a que requieren analizar escenarios desde un enfoque más administrativo y organizacional. Sin embargo, mediante ejemplos y actividades prácticas logré relacionar mejor estos temas con situaciones reales dentro de empresas y entornos tecnológicos.</p>
+                              <p>En cuanto a la aplicación práctica, considero que este curso es muy útil para cualquier persona interesada en ciberseguridad, ya que enseña no solo a identificar amenazas, sino también a gestionarlas y responder correctamente ante incidentes. Personalmente, me gustó porque me ayudó a entender que la seguridad informática también depende mucho de la planificación, la prevención y la toma de decisiones dentro de una organización.</p>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="content-container">
+                          <h4>Badge original</h4>
+                          <img src="/assets/documentos/certi5Badge.png" class="mi-imagen" alt="Badge">
+                        </div>
+                  </div>
+                  </section>
+
+                  <section id="cert6" class="cert-section">
+                    <div class="content-container">
+                      <h1 style="font-size: 40px;">Certificado 6</h1>
+                      <h3>Carrera profesional de Analista Junior en Ciberseguridad</h3>
+
+                      <div class="content-container">
+
+                        <a href="/assets/documentos/certi6Certificado.pdf" download class="btn-descarga">
+                          PDF del certificado
+                        </a>      
+
+                        <div class="content-container">
+                          <h4>Reseña breve del certificado</h4>
+                            <div>
+                              <p>El curso Carrera Profesional de Analista Junior en Ciberseguridad de Cisco me permitió desarrollar una visión más completa sobre el área de la ciberseguridad y las funciones que desempeña un analista dentro de una organización. Durante el proceso de formación adquirí conocimientos relacionados con redes, análisis de amenazas, protección de sistemas, gestión de riesgos, respuesta a incidentes y hacking ético. Además, el contenido combinó teoría con actividades prácticas y laboratorios que ayudaron a comprender cómo se aplican estos conceptos en escenarios reales.</p>
+                              <p>Uno de los aprendizajes más importantes fue entender cómo identificar vulnerabilidades y amenazas que pueden afectar la seguridad de una red o sistema, así como las medidas necesarias para prevenir ataques y responder ante incidentes. También aprendí sobre monitoreo de seguridad, análisis de riesgos y buenas prácticas para proteger la información y los dispositivos conectados a una red. Considero que el enfoque progresivo de la ruta ayudó bastante a relacionar temas técnicos con situaciones reales dentro del entorno laboral.</p>
+                              <p>Uno de los retos que enfrenté fue adaptarme a la cantidad de conceptos técnicos y herramientas nuevas que se manejan dentro de la ciberseguridad, especialmente en temas relacionados con análisis de amenazas y redes. Sin embargo, mediante la práctica constante y los laboratorios fue posible reforzar los conocimientos y comprender mejor los procedimientos utilizados por los profesionales del área.</p>
+                              <p>En cuanto a la aplicación práctica, considero que este curso brinda bases muy sólidas para desarrollarse en el área de ciberseguridad. Personalmente, me pareció una experiencia muy interesante porque permitió comprender tanto la parte defensiva como el análisis de ataques, ayudándome a fortalecer habilidades técnicas y analíticas importantes para mi formación profesional.</p>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="content-container">
+                          <h4>Badge original</h4>
+                          <img src="/assets/documentos/certi6Badge.png" class="mi-imagen" alt="Badge">
+                        </div>
+
+                        
+                  </div>
+                  </section>
+
+                  <section id="cert7" class="cert-section">
+                    <div class="content-container">
+                      <h1 style="font-size: 40px;">Certificado 7</h1>
+                      <h3>Hacker ético</h3>
+
+                      <div class="content-container">
+
+                        <a href="/assets/documentos/certi7Certificado.pdf" download class="btn-descarga">
+                          PDF del certificado
+                        </a>     
+
+                        <div class="content-container">
+                          <h4>Reseña breve del certificado</h4>
+                            <div>
+                              <p>El curso de Hacker Ético me permitió tener una visión más práctica y realista sobre cómo trabajan los profesionales de ciberseguridad para identificar vulnerabilidades antes de que sean explotadas por atacantes reales. Durante el proceso de formación aprendí sobre evaluación de vulnerabilidades, pruebas de penetración y metodologías utilizadas por hackers éticos para analizar sistemas y redes de manera controlada y autorizada. El enfoque dinámico del curso hizo que el aprendizaje fuera más interesante, ya que se trabajaba mediante escenarios y retos similares a situaciones reales.</p>
+                              <p>Uno de los aprendizajes más importantes fue comprender la mentalidad que debe tener un hacker ético para analizar riesgos y detectar posibles puntos débiles dentro de una infraestructura. También aprendí la importancia de actuar de manera ética y responsable al realizar pruebas de seguridad, además de conocer cómo se desarrollan evaluaciones de vulnerabilidades dentro de entornos empresariales.</p>
+                              <p>Uno de los retos que enfrenté fue adaptarme a pensar desde la perspectiva de un atacante y relacionar diferentes técnicas de reconocimiento y análisis con posibles vulnerabilidades reales. En algunos ejercicios fue necesario investigar conceptos adicionales y practicar varias veces para entender correctamente el funcionamiento de ciertas herramientas y metodologías.</p>
+                              <p>En cuanto a la aplicación práctica, considero que este curso es muy útil para fortalecer habilidades relacionadas con pentesting y análisis de seguridad. Personalmente, me gustó mucho porque combina teoría con simulaciones prácticas y ayuda a desarrollar una mentalidad más analítica frente a los riesgos de ciberseguridad. Además, me permitió comprender mejor la importancia de anticiparse a las amenazas antes de que causen daños reales dentro de una organización.</p>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="content-container">
+                          <h4>Badge original</h4>
+                          <img src="/assets/documentos/certi7Badge.png" class="mi-imagen" alt="Badge">
+                        </div>
+
+                  
+                  </div>
+                  </section>
+
+                </div>
+
+              </div>
+        </div>
+      </nav>
+    </div>
+
+
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    
+    <div class="footerX">
+      <footer>Rosales Ramírez Josué Emiliano - 181760</footer>
+    </div>
+  </body>
+</html>
+
+
